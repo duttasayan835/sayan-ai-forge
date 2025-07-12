@@ -187,7 +187,8 @@ const AboutSection: React.FC = () => {
                     <p className="text-sm text-primary">CGPA: 8.79 (till 5th Semester) • 2022-Present</p>
                   </div>
                 </div>
-              </Card>
+              </CardContent>
+            </Card>
 
             <div className="space-y-3">
               <h4 className="font-semibold mb-4">Key Achievements:</h4>
