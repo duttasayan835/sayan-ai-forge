@@ -1,6 +1,7 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Github, Zap, Brain, BarChart3 } from 'lucide-react';
+import { ExternalLink, Github, Bot, BarChart3, Car, MessageSquare } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -10,35 +11,38 @@ const ProjectsSection: React.FC = () => {
     {
       id: 1,
       title: "Savitr-AI",
-      description: "Advanced AI assistant with RAG capabilities, multi-modal interactions, and intelligent conversation management. Built with LangChain and MongoDB.",
-      icon: Brain,
+      description: "An intelligent delivery system leveraging AI for dynamic delivery optimization. Features advanced RAG capabilities, multi-modal interactions, and real-time logistics management.",
+      icon: Bot,
       image: "/placeholder.svg",
-      tags: ["LangChain", "MongoDB", "OpenAI", "RAG", "Python"],
-      github: "https://github.com",
-      live: "https://savitr-ai.com",
-      featured: true
+      tags: ["Python", "LangChain", "OpenAI API", "MongoDB", "RAG", "AI Agents"],
+      github: "https://github.com/duttasayan835",
+      live: "#",
+      featured: true,
+      status: "Ongoing"
     },
     {
       id: 2,
       title: "Cyberpunk Chatbot",
-      description: "Interactive chatbot with a futuristic cyberpunk theme, featuring dynamic responses and personality-driven conversations.",
-      icon: Zap,
+      description: "Interactive AI chatbot with a futuristic cyberpunk theme. Features dynamic personality-driven conversations, real-time responses, and immersive UI design.",
+      icon: MessageSquare,
       image: "/placeholder.svg",
-      tags: ["React", "Node.js", "WebSocket", "AI", "CSS3"],
-      github: "https://github.com",
-      live: "https://cyberpunk-bot.com",
-      featured: true
+      tags: ["React", "Node.js", "WebSocket", "Gemini API", "CSS3"],
+      github: "https://github.com/duttasayan835",
+      live: "#",
+      featured: true,
+      status: "Completed"
     },
     {
       id: 3,
       title: "Road Safety Dashboard",
-      description: "Comprehensive analytics platform for traffic safety monitoring with real-time data visualization and predictive insights.",
+      description: "Comprehensive analytics platform for traffic safety monitoring in India. Features real-time data visualization, accident pattern analysis, and predictive insights for urban planning.",
       icon: BarChart3,
       image: "/placeholder.svg",
-      tags: ["React", "D3.js", "Express", "PostgreSQL", "Chart.js"],
-      github: "https://github.com",
-      live: "https://safety-dashboard.com",
-      featured: false
+      tags: ["React", "D3.js", "Python", "Data Analysis", "Qlik Sense"],
+      github: "https://github.com/duttasayan835",
+      live: "#",
+      featured: false,
+      status: "Completed"
     }
   ];
 
@@ -56,8 +60,8 @@ const ProjectsSection: React.FC = () => {
             Featured <span className="text-gradient">Projects</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Explore my latest work in AI development, automation tools, and full-stack applications. 
-            Each project represents a unique challenge and innovative solution.
+            Explore my latest work in AI development, automation tools, and data analytics. 
+            Each project represents innovation in solving real-world problems with technology.
           </p>
         </motion.div>
 
@@ -75,9 +79,15 @@ const ProjectsSection: React.FC = () => {
               <Card className="h-full glass-effect border-primary/20 hover:border-primary/40 transition-all duration-300 overflow-hidden">
                 <div className="relative h-48 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
                   <project.icon className="h-16 w-16 text-primary group-hover:scale-110 transition-transform duration-300" />
-                  <div className="absolute top-4 right-4">
+                  <div className="absolute top-4 right-4 flex gap-2">
                     <Badge variant="secondary" className="bg-primary/20 text-primary border-primary/30">
                       Featured
+                    </Badge>
+                    <Badge 
+                      variant="outline" 
+                      className={project.status === 'Ongoing' ? 'bg-yellow-500/20 text-yellow-600 border-yellow-500/30' : 'bg-green-500/20 text-green-600 border-green-500/30'}
+                    >
+                      {project.status}
                     </Badge>
                   </div>
                 </div>
@@ -100,13 +110,17 @@ const ProjectsSection: React.FC = () => {
                   </div>
                   
                   <div className="flex space-x-3 pt-4">
-                    <Button variant="outline" size="sm" className="flex-1">
-                      <Github className="h-4 w-4 mr-2" />
-                      Code
+                    <Button variant="outline" size="sm" className="flex-1" asChild>
+                      <a href={project.github} target="_blank" rel="noopener noreferrer">
+                        <Github className="h-4 w-4 mr-2" />
+                        Code
+                      </a>
                     </Button>
-                    <Button size="sm" className="flex-1">
-                      <ExternalLink className="h-4 w-4 mr-2" />
-                      Live Demo
+                    <Button size="sm" className="flex-1" asChild>
+                      <a href={project.live} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="h-4 w-4 mr-2" />
+                        View Project
+                      </a>
                     </Button>
                   </div>
                 </CardContent>
@@ -136,11 +150,19 @@ const ProjectsSection: React.FC = () => {
               >
                 <Card className="h-full glass-effect border-primary/10 hover:border-primary/30 transition-all duration-300 group">
                   <CardHeader className="pb-3">
-                    <div className="flex items-center space-x-3">
-                      <project.icon className="h-6 w-6 text-primary" />
-                      <CardTitle className="text-lg group-hover:text-primary transition-colors duration-300">
-                        {project.title}
-                      </CardTitle>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        <project.icon className="h-6 w-6 text-primary" />
+                        <CardTitle className="text-lg group-hover:text-primary transition-colors duration-300">
+                          {project.title}
+                        </CardTitle>
+                      </div>
+                      <Badge 
+                        variant="outline" 
+                        className="text-xs bg-green-500/20 text-green-600 border-green-500/30"
+                      >
+                        {project.status}
+                      </Badge>
                     </div>
                   </CardHeader>
                   
@@ -161,11 +183,15 @@ const ProjectsSection: React.FC = () => {
                     </div>
                     
                     <div className="flex space-x-2">
-                      <Button variant="ghost" size="sm" className="p-2 h-8 w-8">
-                        <Github className="h-4 w-4" />
+                      <Button variant="ghost" size="sm" className="p-2 h-8 w-8" asChild>
+                        <a href={project.github} target="_blank" rel="noopener noreferrer">
+                          <Github className="h-4 w-4" />
+                        </a>
                       </Button>
-                      <Button variant="ghost" size="sm" className="p-2 h-8 w-8">
-                        <ExternalLink className="h-4 w-4" />
+                      <Button variant="ghost" size="sm" className="p-2 h-8 w-8" asChild>
+                        <a href={project.live} target="_blank" rel="noopener noreferrer">
+                          <ExternalLink className="h-4 w-4" />
+                        </a>
                       </Button>
                     </div>
                   </CardContent>
@@ -182,9 +208,11 @@ const ProjectsSection: React.FC = () => {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="text-center mt-12"
         >
-          <Button variant="outline" size="lg" className="glass-effect">
-            View All Projects on GitHub
-            <Github className="ml-2 h-5 w-5" />
+          <Button variant="outline" size="lg" className="glass-effect" asChild>
+            <a href="https://github.com/duttasayan835" target="_blank" rel="noopener noreferrer">
+              View All Projects on GitHub
+              <Github className="ml-2 h-5 w-5" />
+            </a>
           </Button>
         </motion.div>
       </div>

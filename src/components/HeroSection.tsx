@@ -24,15 +24,15 @@ const HeroSection: React.FC = () => {
       opacity: 1,
       transition: {
         duration: 0.8,
-        ease: "easeOut"
+        ease: [0.4, 0, 0.2, 1]
       }
     }
   };
 
   const stats = [
-    { icon: Users, value: "10K+", label: "Active Users" },
-    { icon: Zap, value: "99.9%", label: "Uptime" },
-    { icon: Star, value: "4.9/5", label: "User Rating" }
+    { icon: Users, value: "10+", label: "AI Projects" },
+    { icon: Zap, value: "3+", label: "Years Experience" },
+    { icon: Star, value: "50K+", label: "Lines of Code" }
   ];
 
   return (
@@ -48,7 +48,7 @@ const HeroSection: React.FC = () => {
         {/* Announcement Badge */}
         <motion.div variants={itemVariants} className="mb-8">
           <Badge variant="outline" className="px-4 py-2 text-sm font-medium border-primary/20 bg-primary/5 hover:bg-primary/10 transition-colors">
-            🚀 New: AI-Powered Automation Suite
+            🚀 Available for AI/LLM Development Opportunities
           </Badge>
         </motion.div>
 
@@ -57,9 +57,9 @@ const HeroSection: React.FC = () => {
           variants={itemVariants}
           className="text-4xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
         >
-          <span className="block">Build Smarter with</span>
-          <span className="block text-gradient">AI-Driven SaaS</span>
-          <span className="block">Solutions</span>
+          <span className="block">Hi, I'm Sayan Dutta</span>
+          <span className="block text-gradient">AI/LLM Builder</span>
+          <span className="block">& CSE Student</span>
         </motion.h1>
 
         {/* Subheadline */}
@@ -67,8 +67,8 @@ const HeroSection: React.FC = () => {
           variants={itemVariants}
           className="text-xl sm:text-2xl text-muted-foreground mb-8 max-w-4xl mx-auto leading-relaxed"
         >
-          Streamline your workflow with our cutting-edge AI automation platform. 
-          Built for teams who want to scale faster and work smarter.
+          Passionate about automating workflows and deploying real-world AI systems. 
+          Currently developing Savitr-AI — an intelligent delivery system.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -77,25 +77,25 @@ const HeroSection: React.FC = () => {
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
         >
           <Button size="lg" className="text-lg px-8 py-4 h-auto group bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25">
-            Start Free Trial
+            View My Projects
             <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
           </Button>
           <Button variant="outline" size="lg" className="text-lg px-8 py-4 h-auto group border-border hover:bg-accent/50">
             <Play className="mr-2 h-5 w-5" />
-            Watch Demo
+            Download Resume
           </Button>
         </motion.div>
 
-        {/* Trust Indicators */}
+        {/* Current Focus */}
         <motion.div
           variants={itemVariants}
           className="mb-12"
         >
-          <p className="text-sm text-muted-foreground mb-4">Trusted by 10,000+ companies worldwide</p>
-          <div className="flex flex-wrap items-center justify-center gap-8 opacity-60">
-            {["Acme Corp", "TechFlow", "DataSync", "CloudBase", "InnovateLab"].map((company) => (
-              <div key={company} className="text-muted-foreground font-medium">
-                {company}
+          <p className="text-sm text-muted-foreground mb-4">Currently Working On</p>
+          <div className="flex flex-wrap items-center justify-center gap-8 opacity-80">
+            {["Savitr-AI", "LangChain", "OpenAI API", "RAG Systems", "AI Agents"].map((tech) => (
+              <div key={tech} className="text-muted-foreground font-medium px-3 py-1 rounded-full bg-primary/5 border border-primary/10">
+                {tech}
               </div>
             ))}
           </div>
@@ -127,7 +127,7 @@ const HeroSection: React.FC = () => {
           className="flex items-center justify-center space-x-6 mt-12"
         >
           <a
-            href="https://github.com"
+            href="https://github.com/duttasayan835"
             className="text-muted-foreground hover:text-primary transition-colors duration-200 p-2 rounded-lg hover:bg-primary/5"
             target="_blank"
             rel="noopener noreferrer"
@@ -135,7 +135,7 @@ const HeroSection: React.FC = () => {
             <Github className="h-6 w-6" />
           </a>
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/dutta-sayan835/"
             className="text-muted-foreground hover:text-primary transition-colors duration-200 p-2 rounded-lg hover:bg-primary/5"
             target="_blank"
             rel="noopener noreferrer"
@@ -143,7 +143,7 @@ const HeroSection: React.FC = () => {
             <Linkedin className="h-6 w-6" />
           </a>
           <a
-            href="mailto:hello@savitr.ai"
+            href="mailto:duttasayan835@gmail.com"
             className="text-muted-foreground hover:text-primary transition-colors duration-200 p-2 rounded-lg hover:bg-primary/5"
           >
             <Mail className="h-6 w-6" />
