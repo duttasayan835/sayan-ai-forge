@@ -1,5 +1,5 @@
 
-import React, { useRef } from 'react';
+import React, { useRef, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Sphere, MeshDistortMaterial, Float, Environment } from '@react-three/drei';
 import { motion } from 'framer-motion';
@@ -11,30 +11,32 @@ function InteractiveSphere() {
   
   useFrame((state) => {
     if (meshRef.current) {
-      meshRef.current.rotation.x = state.clock.elapsedTime * 0.2;
-      meshRef.current.rotation.y = state.clock.elapsedTime * 0.3;
+      meshRef.current.rotation.x = state.clock.elapsedTime * 0.1;
+      meshRef.current.rotation.y = state.clock.elapsedTime * 0.15;
       
-      // Interactive scaling
-      meshRef.current.scale.setScalar(hovered ? 1.2 : 1);
+      const targetScale = hovered ? 1.1 : 1;
+      meshRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
     }
   });
 
   return (
-    <Float speed={2} rotationIntensity={1} floatIntensity={2}>
+    <Float speed={1} rotationIntensity={0.5} floatIntensity={1}>
       <Sphere
         ref={meshRef}
-        args={[1, 100, 200]}
-        scale={2}
+        args={[1, 64, 128]}
+        scale={1.5}
         onPointerOver={() => setHovered(true)}
         onPointerOut={() => setHovered(false)}
       >
         <MeshDistortMaterial
           color={hovered ? "#FF0080" : "#00D9FF"}
           attach="material"
-          distort={0.5}
-          speed={2}
-          roughness={0.2}
-          metalness={0.8}
+          distort={0.3}
+          speed={1.5}
+          roughness={0.1}
+          metalness={0.9}
+          transparent
+          opacity={0.8}
         />
       </Sphere>
     </Float>
@@ -46,20 +48,22 @@ function AnimatedRings() {
   
   useFrame((state) => {
     if (group.current) {
-      group.current.rotation.x = state.clock.elapsedTime * 0.1;
-      group.current.rotation.y = state.clock.elapsedTime * 0.15;
+      group.current.rotation.x = state.clock.elapsedTime * 0.05;
+      group.current.rotation.y = state.clock.elapsedTime * 0.08;
     }
   });
 
   return (
     <group ref={group}>
       {[1, 2, 3].map((ring, index) => (
-        <mesh key={ring} rotation={[0, 0, (index * Math.PI) / 3]} scale={ring * 0.8}>
-          <torusGeometry args={[3, 0.1, 16, 100]} />
+        <mesh key={ring} rotation={[0, 0, (index * Math.PI) / 3]} scale={ring * 0.6}>
+          <torusGeometry args={[2, 0.08, 16, 100]} />
           <meshStandardMaterial
             color={['#00D9FF', '#8B5CF6', '#FF0080'][index]}
             transparent
-            opacity={0.6}
+            opacity={0.4}
+            emissive={['#00D9FF', '#8B5CF6', '#FF0080'][index]}
+            emissiveIntensity={0.1}
           />
         </mesh>
       ))}
@@ -76,20 +80,25 @@ const SplineInspired: React.FC<{ className?: string }> = ({ className = '' }) =>
       transition={{ duration: 1, delay: 0.5 }}
     >
       <Canvas
-        camera={{ position: [0, 0, 8], fov: 50 }}
+        camera={{ position: [0, 0, 6], fov: 45 }}
         style={{ background: 'transparent' }}
+        gl={{ antialias: true, alpha: true }}
+        onCreated={({ gl }) => {
+          gl.setClearColor(0x000000, 0);
+        }}
       >
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} intensity={1} />
-        <pointLight position={[-10, -10, -10]} intensity={0.5} color="#8B5CF6" />
-        
-        <InteractiveSphere />
-        <AnimatedRings />
-        
-        <Environment preset="night" />
+        <Suspense fallback={null}>
+          <ambientLight intensity={0.4} />
+          <pointLight position={[10, 10, 10]} intensity={1} color="#ffffff" />
+          <pointLight position={[-10, -10, -10]} intensity={0.4} color="#8B5CF6" />
+          
+          <InteractiveSphere />
+          <AnimatedRings />
+          
+          <Environment preset="night" />
+        </Suspense>
       </Canvas>
       
-      {/* Overlay text */}
       <motion.div 
         className="absolute inset-0 flex items-center justify-center pointer-events-none"
         initial={{ opacity: 0 }}
