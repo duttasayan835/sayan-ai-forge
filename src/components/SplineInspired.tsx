@@ -1,7 +1,7 @@
 
 import React, { useRef, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Sphere, MeshDistortMaterial, Float, Environment } from '@react-three/drei';
+import { Sphere, MeshDistortMaterial, Float, Environment, Torus, Box } from '@react-three/drei';
 import { motion } from 'framer-motion';
 import * as THREE from 'three';
 
@@ -14,7 +14,7 @@ function InteractiveSphere() {
       meshRef.current.rotation.x = state.clock.elapsedTime * 0.1;
       meshRef.current.rotation.y = state.clock.elapsedTime * 0.15;
       
-      const targetScale = hovered ? 1.1 : 1;
+      const targetScale = hovered ? 1.2 : 1;
       meshRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
     }
   });
@@ -31,12 +31,12 @@ function InteractiveSphere() {
         <MeshDistortMaterial
           color={hovered ? "#FF0080" : "#00D9FF"}
           attach="material"
-          distort={0.3}
-          speed={1.5}
+          distort={0.4}
+          speed={2}
           roughness={0.1}
-          metalness={0.9}
+          metalness={0.8}
           transparent
-          opacity={0.8}
+          opacity={0.9}
         />
       </Sphere>
     </Float>
@@ -61,11 +61,49 @@ function AnimatedRings() {
           <meshStandardMaterial
             color={['#00D9FF', '#8B5CF6', '#FF0080'][index]}
             transparent
-            opacity={0.4}
+            opacity={0.6}
             emissive={['#00D9FF', '#8B5CF6', '#FF0080'][index]}
-            emissiveIntensity={0.1}
+            emissiveIntensity={0.2}
           />
         </mesh>
+      ))}
+    </group>
+  );
+}
+
+function FloatingCubes() {
+  const cubesRef = useRef<THREE.Group>(null);
+
+  useFrame((state) => {
+    if (cubesRef.current) {
+      cubesRef.current.children.forEach((cube, index) => {
+        cube.rotation.x = state.clock.elapsedTime * (0.5 + index * 0.1);
+        cube.rotation.y = state.clock.elapsedTime * (0.3 + index * 0.05);
+        cube.position.y = Math.sin(state.clock.elapsedTime + index) * 0.5;
+      });
+    }
+  });
+
+  return (
+    <group ref={cubesRef}>
+      {Array.from({ length: 5 }).map((_, index) => (
+        <Box
+          key={index}
+          args={[0.3, 0.3, 0.3]}
+          position={[
+            Math.cos((index / 5) * Math.PI * 2) * 3,
+            0,
+            Math.sin((index / 5) * Math.PI * 2) * 3
+          ]}
+        >
+          <meshStandardMaterial
+            color={`hsl(${200 + index * 30}, 70%, 60%)`}
+            transparent
+            opacity={0.7}
+            emissive={`hsl(${200 + index * 30}, 70%, 40%)`}
+            emissiveIntensity={0.1}
+          />
+        </Box>
       ))}
     </group>
   );
@@ -80,7 +118,7 @@ const SplineInspired: React.FC<{ className?: string }> = ({ className = '' }) =>
       transition={{ duration: 1, delay: 0.5 }}
     >
       <Canvas
-        camera={{ position: [0, 0, 6], fov: 45 }}
+        camera={{ position: [0, 0, 8], fov: 45 }}
         style={{ background: 'transparent' }}
         gl={{ antialias: true, alpha: true }}
         onCreated={({ gl }) => {
@@ -91,9 +129,11 @@ const SplineInspired: React.FC<{ className?: string }> = ({ className = '' }) =>
           <ambientLight intensity={0.4} />
           <pointLight position={[10, 10, 10]} intensity={1} color="#ffffff" />
           <pointLight position={[-10, -10, -10]} intensity={0.4} color="#8B5CF6" />
+          <pointLight position={[0, 10, 5]} intensity={0.6} color="#00D9FF" />
           
           <InteractiveSphere />
           <AnimatedRings />
+          <FloatingCubes />
           
           <Environment preset="night" />
         </Suspense>

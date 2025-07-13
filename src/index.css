@@ -99,6 +99,8 @@
 @layer utilities {
   .text-gradient {
     @apply bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent;
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease infinite;
   }
   
   .glass-effect {
@@ -112,44 +114,41 @@
     background-size: 20px 20px;
   }
   
-  /* SaaS-style animations */
-  .saas-hover {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Advanced animations */
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite alternate;
   }
   
-  .saas-hover:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  .animate-float {
+    animation: floating 6s ease-in-out infinite;
   }
   
-  /* Enhanced button styles */
-  .btn-primary {
-    @apply bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/25;
+  .animate-typewriter {
+    animation: typewriter 3s steps(30) 1s forwards;
   }
   
-  .btn-secondary {
-    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border;
+  .animate-fade-in-up {
+    animation: fade-in-up 0.8s ease-out forwards;
   }
   
-  /* Card hover effects */
-  .card-hover {
-    @apply transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1;
+  .animate-scale-in {
+    animation: scale-in 0.5s ease-out forwards;
   }
   
-  /* Loading states */
-  .loading-shimmer {
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
+  .animate-slide-right {
+    animation: slide-right 0.6s ease-out forwards;
   }
   
-  /* Badge styles */
-  .badge-primary {
-    @apply bg-primary/10 text-primary border-primary/20;
+  .animate-bounce-gentle {
+    animation: bounce-gentle 2s ease-in-out infinite;
   }
   
-  .badge-success {
-    @apply bg-green-500/10 text-green-500 border-green-500/20;
+  .animate-gradient-x {
+    animation: gradient-x 3s ease infinite;
+  }
+  
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
   }
 }
 
@@ -176,12 +175,21 @@ html {
 }
 
 /* Enhanced keyframe animations */
-@keyframes shimmer {
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes pulse-glow {
   0% {
-    background-position: -200% 0;
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
   }
   100% {
-    background-position: 200% 0;
+    box-shadow: 0 0 40px rgba(0, 217, 255, 0.4), 0 0 60px rgba(139, 92, 246, 0.2);
   }
 }
 
@@ -197,68 +205,172 @@ html {
   }
 }
 
-@keyframes pulse-glow {
+@keyframes typewriter {
   0% {
-    box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
+    width: 0;
   }
   100% {
-    box-shadow: 0 0 40px rgba(0, 217, 255, 0.4), 0 0 60px rgba(139, 92, 246, 0.2);
+    width: 100%;
   }
 }
 
-/* SaaS-specific animations */
-@keyframes slide-up {
-  from {
+@keyframes fade-in-up {
+  0% {
     opacity: 0;
     transform: translateY(30px);
   }
-  to {
+  100% {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-@keyframes fade-in-scale {
-  from {
+@keyframes scale-in {
+  0% {
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(0.9);
   }
-  to {
+  100% {
     opacity: 1;
     transform: scale(1);
   }
 }
 
-/* Utility animations */
-.animate-slide-up {
-  animation: slide-up 0.6s ease-out;
+@keyframes slide-right {
+  0% {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
-.animate-fade-in-scale {
-  animation: fade-in-scale 0.4s ease-out;
+@keyframes bounce-gentle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
-.animate-float {
-  animation: floating 6s ease-in-out infinite;
+@keyframes gradient-x {
+  0%, 100% {
+    transform: translateX(0%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
 }
 
-.animate-pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite alternate;
+@keyframes glow {
+  0% {
+    filter: brightness(1) drop-shadow(0 0 10px rgba(0, 217, 255, 0.3));
+  }
+  100% {
+    filter: brightness(1.2) drop-shadow(0 0 30px rgba(0, 217, 255, 0.6));
+  }
+}
+
+/* Cursor effects */
+.cursor-magnetic {
+  cursor: none;
+}
+
+.cursor-magnetic::after {
+  content: '';
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, rgba(0, 217, 255, 0.8), transparent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: all 0.1s ease;
+}
+
+/* Interactive elements */
+.interactive-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.interactive-card:hover {
+  transform: translateY(-8px) rotateX(5deg) rotateY(5deg);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.tilt-card {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.tilt-card:hover {
+  transform: rotateX(10deg) rotateY(10deg);
+}
+
+/* Loading animations */
+.loading-dots {
+  display: inline-block;
+}
+
+.loading-dots::after {
+  content: '';
+  animation: loading-dots 1.5s infinite;
+}
+
+@keyframes loading-dots {
+  0%, 20% {
+    content: '';
+  }
+  40% {
+    content: '.';
+  }
+  60% {
+    content: '..';
+  }
+  80%, 100% {
+    content: '...';
+  }
+}
+
+/* Morphing backgrounds */
+.morphing-bg {
+  background: linear-gradient(-45deg, #00D9FF, #8B5CF6, #FF0080, #00FF88);
+  background-size: 400% 400%;
+  animation: morphing 8s ease-in-out infinite;
+}
+
+@keyframes morphing {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* Responsive improvements */
 @media (max-width: 640px) {
   .text-gradient {
     background-size: 200% 200%;
-    animation: gradient-shift 3s ease infinite;
+  }
+  
+  .interactive-card:hover {
+    transform: translateY(-4px);
   }
 }
 
-@keyframes gradient-shift {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
   }
 }
