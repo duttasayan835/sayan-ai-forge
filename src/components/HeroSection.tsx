@@ -44,8 +44,7 @@ const HeroSection: React.FC = () => {
       y: [-10, 10, -10],
       transition: {
         duration: 3,
-        repeat: Infinity,
-        ease: "easeInOut"
+        repeat: Infinity
       }
     }
   };
@@ -78,8 +77,7 @@ const HeroSection: React.FC = () => {
             transition={{
               duration: Math.random() * 10 + 5,
               repeat: Infinity,
-              repeatType: "reverse",
-              ease: "linear"
+              repeatType: "reverse"
             }}
           />
         ))}
@@ -220,8 +218,14 @@ const HeroSection: React.FC = () => {
               style={{ transformStyle: "preserve-3d" }}
             >
               <motion.div
-                animate={floatingVariants.float}
-                transition={{ delay: index * 0.5 }}
+                animate={{
+                  y: [-10, 10, -10],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  delay: index * 0.5
+                }}
               >
                 <stat.icon className="h-8 w-8 text-primary mb-2" />
               </motion.div>
@@ -289,7 +293,6 @@ const HeroSection: React.FC = () => {
           transition={{
             duration: 4 + index,
             repeat: Infinity,
-            ease: "easeInOut",
             delay: element.delay
           }}
         />
