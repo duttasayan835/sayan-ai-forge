@@ -70,12 +70,12 @@ const HeroSection: React.FC = () => {
             key={i}
             className="absolute w-2 h-2 bg-primary/30 rounded-full"
             initial={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
+              x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
+              y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000),
             }}
             animate={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
+              x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
+              y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000),
             }}
             transition={{
               duration: Math.random() * 10 + 5,
@@ -108,7 +108,7 @@ const HeroSection: React.FC = () => {
         {/* Main Headline with typewriter effect */}
         <motion.div variants={itemVariants} className="mb-6">
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold leading-tight">
-            <motion.span className="block">Hi, I'm Sayan Dutta</span>
+            <motion.span className="block">Hi, I'm Sayan Dutta</motion.span>
             <motion.div className="block text-gradient overflow-hidden whitespace-nowrap">
               <motion.span
                 variants={typewriterVariants}
