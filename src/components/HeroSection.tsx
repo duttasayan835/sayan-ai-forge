@@ -24,7 +24,30 @@ const HeroSection: React.FC = () => {
       opacity: 1,
       transition: {
         duration: 0.8,
-        ease: [0.4, 0, 0.2, 1]
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const typewriterVariants = {
+    hidden: { width: 0 },
+    visible: {
+      width: "100%",
+      transition: {
+        duration: 2,
+        ease: "easeInOut",
+        delay: 0.5
+      }
+    }
+  };
+
+  const floatingVariants = {
+    float: {
+      y: [-10, 10, -10],
+      transition: {
+        duration: 3,
+        repeat: Infinity,
+        ease: "easeInOut"
       }
     }
   };
@@ -37,7 +60,32 @@ const HeroSection: React.FC = () => {
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-background via-background to-primary/5">
+      {/* Animated Background Elements */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5" />
+      
+      {/* Floating Particles */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 bg-primary/30 rounded-full"
+            initial={{
+              x: Math.random() * window.innerWidth,
+              y: Math.random() * window.innerHeight,
+            }}
+            animate={{
+              x: Math.random() * window.innerWidth,
+              y: Math.random() * window.innerHeight,
+            }}
+            transition={{
+              duration: Math.random() * 10 + 5,
+              repeat: Infinity,
+              repeatType: "reverse",
+              ease: "linear"
+            }}
+          />
+        ))}
+      </div>
       
       <motion.div
         variants={containerVariants}
@@ -45,24 +93,45 @@ const HeroSection: React.FC = () => {
         animate="visible"
         className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto"
       >
-        {/* Announcement Badge */}
-        <motion.div variants={itemVariants} className="mb-8">
-          <Badge variant="outline" className="px-4 py-2 text-sm font-medium border-primary/20 bg-primary/5 hover:bg-primary/10 transition-colors">
+        {/* Announcement Badge with slide animation */}
+        <motion.div 
+          variants={itemVariants} 
+          className="mb-8"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Badge variant="outline" className="px-4 py-2 text-sm font-medium border-primary/20 bg-primary/5 hover:bg-primary/10 transition-colors animate-pulse-glow">
             🚀 Available for AI/LLM Development Opportunities
           </Badge>
         </motion.div>
 
-        {/* Main Headline */}
-        <motion.h1
-          variants={itemVariants}
-          className="text-4xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
-        >
-          <span className="block">Hi, I'm Sayan Dutta</span>
-          <span className="block text-gradient">AI/LLM Builder</span>
-          <span className="block">& CSE Student</span>
-        </motion.h1>
+        {/* Main Headline with typewriter effect */}
+        <motion.div variants={itemVariants} className="mb-6">
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold leading-tight">
+            <motion.span className="block">Hi, I'm Sayan Dutta</span>
+            <motion.div className="block text-gradient overflow-hidden whitespace-nowrap">
+              <motion.span
+                variants={typewriterVariants}
+                initial="hidden"
+                animate="visible"
+                className="inline-block"
+                style={{ borderRight: "2px solid currentColor" }}
+              >
+                AI/LLM Builder
+              </motion.span>
+            </motion.div>
+            <motion.span 
+              className="block"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 2.5, duration: 0.8 }}
+            >
+              & CSE Student
+            </motion.span>
+          </h1>
+        </motion.div>
 
-        {/* Subheadline */}
+        {/* Subheadline with stagger animation */}
         <motion.p
           variants={itemVariants}
           className="text-xl sm:text-2xl text-muted-foreground mb-8 max-w-4xl mx-auto leading-relaxed"
@@ -71,37 +140,68 @@ const HeroSection: React.FC = () => {
           Currently developing Savitr-AI — an intelligent delivery system.
         </motion.p>
 
-        {/* CTA Buttons */}
+        {/* CTA Buttons with hover animations */}
         <motion.div
           variants={itemVariants}
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
         >
-          <Button size="lg" className="text-lg px-8 py-4 h-auto group bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25">
-            View My Projects
-            <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-          </Button>
-          <Button variant="outline" size="lg" className="text-lg px-8 py-4 h-auto group border-border hover:bg-accent/50">
-            <Play className="mr-2 h-5 w-5" />
-            Download Resume
-          </Button>
+          <motion.div
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Button size="lg" className="text-lg px-8 py-4 h-auto group bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25">
+              View My Projects
+              <motion.div
+                className="ml-2"
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              >
+                <ArrowRight className="h-5 w-5" />
+              </motion.div>
+            </Button>
+          </motion.div>
+          
+          <motion.div
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Button variant="outline" size="lg" className="text-lg px-8 py-4 h-auto group border-border hover:bg-accent/50">
+              <Play className="mr-2 h-5 w-5" />
+              Download Resume
+            </Button>
+          </motion.div>
         </motion.div>
 
-        {/* Current Focus */}
+        {/* Current Focus with fade-in animation */}
         <motion.div
           variants={itemVariants}
           className="mb-12"
         >
-          <p className="text-sm text-muted-foreground mb-4">Currently Working On</p>
+          <motion.p 
+            className="text-sm text-muted-foreground mb-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.5 }}
+          >
+            Currently Working On
+          </motion.p>
           <div className="flex flex-wrap items-center justify-center gap-8 opacity-80">
-            {["Savitr-AI", "LangChain", "OpenAI API", "RAG Systems", "AI Agents"].map((tech) => (
-              <div key={tech} className="text-muted-foreground font-medium px-3 py-1 rounded-full bg-primary/5 border border-primary/10">
+            {["Savitr-AI", "LangChain", "OpenAI API", "RAG Systems", "AI Agents"].map((tech, index) => (
+              <motion.div
+                key={tech}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 2 + index * 0.1 }}
+                whileHover={{ scale: 1.1, y: -2 }}
+                className="text-muted-foreground font-medium px-3 py-1 rounded-full bg-primary/5 border border-primary/10 cursor-pointer"
+              >
                 {tech}
-              </div>
+              </motion.div>
             ))}
           </div>
         </motion.div>
 
-        {/* Stats */}
+        {/* Stats with 3D hover effects */}
         <motion.div
           variants={itemVariants}
           className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-2xl mx-auto"
@@ -109,53 +209,93 @@ const HeroSection: React.FC = () => {
           {stats.map((stat, index) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 + index * 0.1 }}
-              className="flex flex-col items-center p-6 rounded-xl glass-effect border border-primary/10 hover:border-primary/20 transition-colors"
+              initial={{ opacity: 0, y: 50, rotateX: -90 }}
+              animate={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ delay: 0.8 + index * 0.2, duration: 0.6 }}
+              whileHover={{ 
+                scale: 1.05, 
+                rotateY: 10,
+                z: 50,
+                transition: { duration: 0.3 }
+              }}
+              className="flex flex-col items-center p-6 rounded-xl glass-effect border border-primary/10 hover:border-primary/20 transition-colors cursor-pointer"
+              style={{ transformStyle: "preserve-3d" }}
             >
-              <stat.icon className="h-8 w-8 text-primary mb-2" />
-              <div className="text-2xl font-bold text-foreground mb-1">{stat.value}</div>
+              <motion.div
+                animate={floatingVariants.float}
+                transition={{ delay: index * 0.5 }}
+              >
+                <stat.icon className="h-8 w-8 text-primary mb-2" />
+              </motion.div>
+              <motion.div 
+                className="text-2xl font-bold text-foreground mb-1"
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 1 + index * 0.1, type: "spring", stiffness: 200 }}
+              >
+                {stat.value}
+              </motion.div>
               <div className="text-sm text-muted-foreground">{stat.label}</div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Social Links */}
+        {/* Social Links with stagger and hover animations */}
         <motion.div
           variants={itemVariants}
           className="flex items-center justify-center space-x-6 mt-12"
         >
-          <a
-            href="https://github.com/duttasayan835"
-            className="text-muted-foreground hover:text-primary transition-colors duration-200 p-2 rounded-lg hover:bg-primary/5"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Github className="h-6 w-6" />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/dutta-sayan835/"
-            className="text-muted-foreground hover:text-primary transition-colors duration-200 p-2 rounded-lg hover:bg-primary/5"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Linkedin className="h-6 w-6" />
-          </a>
-          <a
-            href="mailto:duttasayan835@gmail.com"
-            className="text-muted-foreground hover:text-primary transition-colors duration-200 p-2 rounded-lg hover:bg-primary/5"
-          >
-            <Mail className="h-6 w-6" />
-          </a>
+          {[
+            { icon: Github, href: "https://github.com/duttasayan835", label: "GitHub" },
+            { icon: Linkedin, href: "https://www.linkedin.com/in/dutta-sayan835/", label: "LinkedIn" },
+            { icon: Mail, href: "mailto:duttasayan835@gmail.com", label: "Email" }
+          ].map((social, index) => (
+            <motion.a
+              key={social.label}
+              href={social.href}
+              target={social.label !== "Email" ? "_blank" : undefined}
+              rel={social.label !== "Email" ? "noopener noreferrer" : undefined}
+              className="text-muted-foreground hover:text-primary transition-colors duration-200 p-3 rounded-lg hover:bg-primary/5"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 2.5 + index * 0.1 }}
+              whileHover={{ 
+                scale: 1.2, 
+                rotate: 360,
+                transition: { duration: 0.3 }
+              }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <social.icon className="h-6 w-6" />
+            </motion.a>
+          ))}
         </motion.div>
       </motion.div>
 
-      {/* Floating elements */}
-      <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-primary rounded-full animate-float opacity-60" />
-      <div className="absolute top-1/3 right-1/4 w-3 h-3 bg-accent rounded-full animate-float opacity-40" style={{ animationDelay: '1s' }} />
-      <div className="absolute bottom-1/4 left-1/3 w-1 h-1 bg-primary rounded-full animate-float opacity-80" style={{ animationDelay: '2s' }} />
-      <div className="absolute bottom-1/3 right-1/3 w-2 h-2 bg-accent rounded-full animate-float opacity-50" style={{ animationDelay: '3s' }} />
+      {/* Enhanced floating elements with 3D transforms */}
+      {[
+        { size: "w-2 h-2", color: "bg-primary", position: "top-1/4 left-1/4", delay: "0s" },
+        { size: "w-3 h-3", color: "bg-accent", position: "top-1/3 right-1/4", delay: "1s" },
+        { size: "w-1 h-1", color: "bg-primary", position: "bottom-1/4 left-1/3", delay: "2s" },
+        { size: "w-2 h-2", color: "bg-accent", position: "bottom-1/3 right-1/3", delay: "3s" }
+      ].map((element, index) => (
+        <motion.div
+          key={index}
+          className={`absolute ${element.position} ${element.size} ${element.color} rounded-full opacity-60`}
+          animate={{
+            y: [-20, 20, -20],
+            x: [-10, 10, -10],
+            rotate: [0, 180, 360],
+            scale: [1, 1.2, 1]
+          }}
+          transition={{
+            duration: 4 + index,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: parseInt(element.delay)
+          }}
+        />
+      ))}
     </section>
   );
 };

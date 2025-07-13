@@ -8,11 +8,13 @@ import ContactSection from '@/components/ContactSection';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ThreeBackground from '@/components/ThreeBackground';
+import ParticleSystem from '@/components/ParticleSystem';
 
 const Index = () => {
   return (
     <div className="relative min-h-screen overflow-x-hidden">
       <ThreeBackground />
+      <ParticleSystem />
       <Navbar />
       <main className="relative z-10">
         <HeroSection />
