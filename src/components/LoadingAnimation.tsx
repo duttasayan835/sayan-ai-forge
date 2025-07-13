@@ -1,49 +1,6 @@
 
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
-
-// Simple fallback component for Three.js errors
-const LoadingFallback: React.FC = () => (
-  <div className="w-full h-full flex items-center justify-center">
-    <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin" />
-  </div>
-);
-
-// Simplified 3D scene without complex geometry
-const LoadingScene: React.FC = () => {
-  return (
-    <>
-      <ambientLight intensity={0.5} />
-      <pointLight position={[10, 10, 10]} />
-      
-      <motion.group
-        animate={{ rotateY: Math.PI * 2 }}
-        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-      >
-        {/* Simple wireframe sphere */}
-        <mesh position={[0, 0, 0]}>
-          <sphereGeometry args={[1, 16, 16]} />
-          <meshBasicMaterial color="#00D9FF" wireframe />
-        </mesh>
-        
-        {/* Simple colored cubes */}
-        <mesh position={[2, 0, 0]}>
-          <boxGeometry args={[0.5, 0.5, 0.5]} />
-          <meshBasicMaterial color="#8B5CF6" />
-        </mesh>
-        
-        <mesh position={[-2, 0, 0]}>
-          <boxGeometry args={[0.3, 0.3, 0.3]} />
-          <meshBasicMaterial color="#FF0080" />
-        </mesh>
-      </motion.group>
-      
-      <OrbitControls enableZoom={false} enablePan={false} />
-    </>
-  );
-};
 
 interface LoadingAnimationProps {
   onComplete: () => void;
@@ -81,18 +38,33 @@ const LoadingAnimation: React.FC<LoadingAnimationProps> = ({ onComplete }) => {
           className="fixed inset-0 bg-background z-50 flex items-center justify-center"
         >
           <div className="text-center">
-            {/* 3D Loading Scene with error boundary */}
-            <div className="w-64 h-64 mx-auto mb-8">
-              <Suspense fallback={<LoadingFallback />}>
-                <Canvas 
-                  camera={{ position: [0, 0, 5] }}
-                  onCreated={({ gl }) => {
-                    gl.setClearColor('#0a0a0a', 0);
-                  }}
-                >
-                  <LoadingScene />
-                </Canvas>
-              </Suspense>
+            {/* Simple CSS Loading Animation */}
+            <div className="w-64 h-64 mx-auto mb-8 flex items-center justify-center">
+              <div className="relative">
+                {/* Rotating circles */}
+                <motion.div
+                  className="w-32 h-32 border-4 border-primary/20 rounded-full"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                />
+                <motion.div
+                  className="absolute top-2 left-2 w-28 h-28 border-4 border-accent/40 rounded-full"
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                />
+                <motion.div
+                  className="absolute top-4 left-4 w-24 h-24 border-4 border-primary/60 rounded-full"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                />
+                
+                {/* Center pulsing dot */}
+                <motion.div
+                  className="absolute top-1/2 left-1/2 w-4 h-4 -mt-2 -ml-2 bg-primary rounded-full"
+                  animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
+                  transition={{ duration: 1, repeat: Infinity }}
+                />
+              </div>
             </div>
 
             {/* Loading Text */}

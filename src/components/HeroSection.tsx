@@ -23,8 +23,7 @@ const HeroSection: React.FC = () => {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.8,
-        ease: "easeOut"
+        duration: 0.8
       }
     }
   };
@@ -35,7 +34,6 @@ const HeroSection: React.FC = () => {
       width: "100%",
       transition: {
         duration: 2,
-        ease: "easeOut",
         delay: 0.5
       }
     }
