@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, ArrowRight, Play, Star, Users, Zap } from 'lucide-react';
@@ -23,7 +24,7 @@ const HeroSection: React.FC = () => {
       opacity: 1,
       transition: {
         duration: 0.8,
-        ease: [0.6, -0.05, 0.01, 0.99]
+        ease: "easeOut"
       }
     }
   };
@@ -34,7 +35,7 @@ const HeroSection: React.FC = () => {
       width: "100%",
       transition: {
         duration: 2,
-        ease: [0.6, -0.05, 0.01, 0.99],
+        ease: "easeOut",
         delay: 0.5
       }
     }
@@ -46,7 +47,7 @@ const HeroSection: React.FC = () => {
       transition: {
         duration: 3,
         repeat: Infinity,
-        ease: [0.445, 0.05, 0.55, 0.95]
+        ease: "easeInOut"
       }
     }
   };
@@ -273,10 +274,10 @@ const HeroSection: React.FC = () => {
 
       {/* Enhanced floating elements with 3D transforms */}
       {[
-        { size: "w-2 h-2", color: "bg-primary", position: "top-1/4 left-1/4", delay: "0s" },
-        { size: "w-3 h-3", color: "bg-accent", position: "top-1/3 right-1/4", delay: "1s" },
-        { size: "w-1 h-1", color: "bg-primary", position: "bottom-1/4 left-1/3", delay: "2s" },
-        { size: "w-2 h-2", color: "bg-accent", position: "bottom-1/3 right-1/3", delay: "3s" }
+        { size: "w-2 h-2", color: "bg-primary", position: "top-1/4 left-1/4", delay: 0 },
+        { size: "w-3 h-3", color: "bg-accent", position: "top-1/3 right-1/4", delay: 1 },
+        { size: "w-1 h-1", color: "bg-primary", position: "bottom-1/4 left-1/3", delay: 2 },
+        { size: "w-2 h-2", color: "bg-accent", position: "bottom-1/3 right-1/3", delay: 3 }
       ].map((element, index) => (
         <motion.div
           key={index}
@@ -290,8 +291,8 @@ const HeroSection: React.FC = () => {
           transition={{
             duration: 4 + index,
             repeat: Infinity,
-            ease: [0.445, 0.05, 0.55, 0.95],
-            delay: parseInt(element.delay)
+            ease: "easeInOut",
+            delay: element.delay
           }}
         />
       ))}

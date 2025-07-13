@@ -1,9 +1,17 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Sphere, Box } from '@react-three/drei';
+import { OrbitControls } from '@react-three/drei';
 
+// Simple fallback component for Three.js errors
+const LoadingFallback: React.FC = () => (
+  <div className="w-full h-full flex items-center justify-center">
+    <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+  </div>
+);
+
+// Simplified 3D scene without complex geometry
 const LoadingScene: React.FC = () => {
   return (
     <>
@@ -14,17 +22,22 @@ const LoadingScene: React.FC = () => {
         animate={{ rotateY: Math.PI * 2 }}
         transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
       >
-        <Sphere args={[1, 32, 32]} position={[0, 0, 0]}>
-          <meshStandardMaterial color="#00D9FF" wireframe />
-        </Sphere>
+        {/* Simple wireframe sphere */}
+        <mesh position={[0, 0, 0]}>
+          <sphereGeometry args={[1, 16, 16]} />
+          <meshBasicMaterial color="#00D9FF" wireframe />
+        </mesh>
         
-        <Box args={[0.5, 0.5, 0.5]} position={[2, 0, 0]}>
-          <meshStandardMaterial color="#8B5CF6" />
-        </Box>
+        {/* Simple colored cubes */}
+        <mesh position={[2, 0, 0]}>
+          <boxGeometry args={[0.5, 0.5, 0.5]} />
+          <meshBasicMaterial color="#8B5CF6" />
+        </mesh>
         
-        <Box args={[0.3, 0.3, 0.3]} position={[-2, 0, 0]}>
-          <meshStandardMaterial color="#FF0080" />
-        </Box>
+        <mesh position={[-2, 0, 0]}>
+          <boxGeometry args={[0.3, 0.3, 0.3]} />
+          <meshBasicMaterial color="#FF0080" />
+        </mesh>
       </motion.group>
       
       <OrbitControls enableZoom={false} enablePan={false} />
@@ -68,11 +81,18 @@ const LoadingAnimation: React.FC<LoadingAnimationProps> = ({ onComplete }) => {
           className="fixed inset-0 bg-background z-50 flex items-center justify-center"
         >
           <div className="text-center">
-            {/* 3D Loading Scene */}
+            {/* 3D Loading Scene with error boundary */}
             <div className="w-64 h-64 mx-auto mb-8">
-              <Canvas camera={{ position: [0, 0, 5] }}>
-                <LoadingScene />
-              </Canvas>
+              <Suspense fallback={<LoadingFallback />}>
+                <Canvas 
+                  camera={{ position: [0, 0, 5] }}
+                  onCreated={({ gl }) => {
+                    gl.setClearColor('#0a0a0a', 0);
+                  }}
+                >
+                  <LoadingScene />
+                </Canvas>
+              </Suspense>
             </div>
 
             {/* Loading Text */}
