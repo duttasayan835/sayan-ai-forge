@@ -1,7 +1,6 @@
-
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Send, Mail, MapPin, Phone, Loader2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Send, Mail, MapPin, Phone, Loader2, Plane } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -10,6 +9,7 @@ import { useToast } from '@/hooks/use-toast';
 
 const ContactSection: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showFlyingAnimation, setShowFlyingAnimation] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -21,16 +21,18 @@ const ContactSection: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setShowFlyingAnimation(true);
 
     // Simulate form submission
     setTimeout(() => {
       setIsSubmitting(false);
+      setShowFlyingAnimation(false);
       toast({
         title: "Message sent!",
         description: "Thank you for reaching out. I'll get back to you soon.",
       });
       setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 2000);
+    }, 3000);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -44,13 +46,13 @@ const ContactSection: React.FC = () => {
     {
       icon: Mail,
       label: "Email",
-      value: "sayan.dutta@example.com",
-      href: "mailto:sayan.dutta@example.com"
+      value: "duttasayan835@gmail.com",
+      href: "mailto:duttasayan835@gmail.com"
     },
     {
       icon: MapPin,
       label: "Location",
-      value: "India",
+      value: "West Bengal, India",
       href: "#"
     },
     {
@@ -62,7 +64,54 @@ const ContactSection: React.FC = () => {
   ];
 
   return (
-    <section id="contact" className="py-20 relative">
+    <section id="contact" className="py-20 relative overflow-hidden">
+      {/* Flying Animation Overlay */}
+      <AnimatePresence>
+        {showFlyingAnimation && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 pointer-events-none flex items-center justify-center"
+          >
+            <motion.div
+              initial={{ x: 0, y: 0, scale: 1, rotate: 0 }}
+              animate={{
+                x: [0, 200, 400, 800],
+                y: [0, -100, -200, -400],
+                scale: [1, 0.8, 0.6, 0.2],
+                rotate: [0, 45, 90, 180]
+              }}
+              transition={{ duration: 2.5, ease: [0.4, 0, 0.2, 1] }}
+              className="text-primary"
+            >
+              <Plane className="h-8 w-8" />
+            </motion.div>
+            
+            {/* Trailing sparkles */}
+            {[...Array(5)].map((_, i) => (
+              <motion.div
+                key={i}
+                initial={{ x: 0, y: 0, opacity: 1 }}
+                animate={{
+                  x: [0, 150 + i * 50, 300 + i * 100],
+                  y: [0, -50 - i * 20, -150 - i * 40],
+                  opacity: [1, 0.5, 0]
+                }}
+                transition={{ 
+                  duration: 2, 
+                  delay: i * 0.1,
+                  ease: [0.4, 0, 0.2, 1] 
+                }}
+                className="absolute text-accent"
+              >
+                ✨
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -88,7 +137,7 @@ const ContactSection: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <Card className="glass-effect border-primary/20 hover:border-primary/40 transition-all duration-300">
+            <Card className="glass-effect border-primary/20 hover:border-primary/40 transition-all duration-300 relative">
               <CardHeader>
                 <CardTitle className="text-2xl">Send Message</CardTitle>
               </CardHeader>
@@ -161,7 +210,7 @@ const ContactSection: React.FC = () => {
                     type="submit"
                     size="lg"
                     disabled={isSubmitting}
-                    className="w-full glow-effect"
+                    className="w-full glow-effect relative overflow-hidden"
                   >
                     {isSubmitting ? (
                       <>

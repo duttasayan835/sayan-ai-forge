@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -104,6 +105,10 @@
   
   .glass-effect {
     @apply bg-card/50 backdrop-blur-xl border border-border/50;
+  }
+  
+  .glow-effect {
+    @apply shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/40 transition-shadow duration-300;
   }
   
   /* Grid pattern background */
@@ -290,6 +295,8 @@ html {
     filter: brightness(1.2) drop-shadow(0 0 30px rgba(0, 217, 255, 0.6));
   }
 }
+
+/* ... keep existing code (cursor effects, interactive elements, loading animations, morphing backgrounds, responsive improvements, and print styles) */
 
 /* Cursor effects */
 .cursor-magnetic {

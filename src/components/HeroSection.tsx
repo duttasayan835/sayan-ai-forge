@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, ArrowRight, Play, Star, Users, Zap } from 'lucide-react';
@@ -24,7 +23,7 @@ const HeroSection: React.FC = () => {
       opacity: 1,
       transition: {
         duration: 0.8,
-        ease: "easeOut"
+        ease: [0.6, -0.05, 0.01, 0.99]
       }
     }
   };
@@ -35,7 +34,7 @@ const HeroSection: React.FC = () => {
       width: "100%",
       transition: {
         duration: 2,
-        ease: "easeOut",
+        ease: [0.6, -0.05, 0.01, 0.99],
         delay: 0.5
       }
     }
@@ -47,7 +46,7 @@ const HeroSection: React.FC = () => {
       transition: {
         duration: 3,
         repeat: Infinity,
-        ease: "easeInOut"
+        ease: [0.445, 0.05, 0.55, 0.95]
       }
     }
   };
@@ -291,7 +290,7 @@ const HeroSection: React.FC = () => {
           transition={{
             duration: 4 + index,
             repeat: Infinity,
-            ease: "easeInOut",
+            ease: [0.445, 0.05, 0.55, 0.95],
             delay: parseInt(element.delay)
           }}
         />
