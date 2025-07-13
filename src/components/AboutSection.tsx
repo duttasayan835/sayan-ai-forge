@@ -1,269 +1,310 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Bot, 
-  Code, 
-  Database, 
-  Brain, 
-  Award, 
-  Users, 
-  GraduationCap
-} from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
+import { Code, Brain, Zap, Trophy, BookOpen, Users, Briefcase, GraduationCap } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ScrollReveal, ScaleOnHover, FloatingElement } from './ScrollAnimations';
+import { ScrollReveal, FloatingElement, ScaleOnHover } from '@/components/ScrollAnimations';
 
 const AboutSection: React.FC = () => {
   const skills = [
-    { 
-      icon: Bot, 
-      title: "AI/LLM Development", 
-      description: "Building intelligent systems with LangChain, OpenAI API, and custom AI agents for real-world applications"
+    { name: "Python", level: 90, icon: Code },
+    { name: "LLMs & AI", level: 85, icon: Brain },
+    { name: "LangChain", level: 80, icon: Zap },
+    { name: "React/JS", level: 75, icon: Code }
+  ];
+
+  const experiences = [
+    {
+      title: "AI/LLM Developer",
+      company: "Savitr-AI Project",
+      period: "2024 - Present",
+      description: "Developing intelligent delivery system with advanced RAG capabilities and multi-modal AI interactions.",
+      skills: ["Python", "LangChain", "OpenAI API", "MongoDB"]
     },
-    { 
-      icon: Code, 
-      title: "Full-Stack Development", 
-      description: "Proficient in Python, JavaScript, React, Node.js, and modern web technologies"
+    {
+      title: "Data Analyst Intern",
+      company: "Road Safety Project",
+      period: "2023 - 2024",
+      description: "Built comprehensive analytics dashboard for traffic safety monitoring with predictive insights.",
+      skills: ["React", "D3.js", "Python", "Qlik Sense"]
     },
-    { 
-      icon: Database, 
-      title: "Data Engineering", 
-      description: "Experience with MongoDB, PostgreSQL, data analysis, and building scalable data pipelines"
-    },
-    { 
-      icon: Brain, 
-      title: "Problem Solving", 
-      description: "Strong analytical skills with experience in competitive programming and algorithm design"
+    {
+      title: "Frontend Developer",
+      company: "Cyberpunk Chatbot",
+      period: "2023",
+      description: "Created futuristic AI chatbot with real-time conversation capabilities and immersive UI design.",
+      skills: ["React", "Node.js", "WebSocket", "Gemini API"]
     }
   ];
 
-  const achievements = [
-    "Best Paper Award - ICSAA 2025 'Sustainable AI and Its Applications'",
-    "Outstanding Paper Award - Ideathon 2025 (Inter-Department Research Contest)",
-    "Smart Bengal Hackathon Finalist (2024)",
-    "Top 6000 - Reliance Foundation Scholars Test",
-    "WBJEE Rank: 4116"
-  ];
+  const education = {
+    degree: "B.Tech in Computer Science",
+    institution: "University Institute of Technology, Burdwan",
+    period: "2022 - 2026",
+    cgpa: "8.79",
+    achievements: [
+      "AI/ML Specialization",
+      "Full Stack Development",
+      "Data Structures & Algorithms"
+    ]
+  };
 
-  const experience = [
-    {
-      title: "AI/LLM Enthusiast",
-      company: "Personal Projects",
-      period: "2022 - Present",
-      description: "Building AI agents, automation tools, and LLM-powered applications",
-      metric: "10+ Projects"
-    },
-    {
-      title: "Business Analytics Intern",
-      company: "SmartBridge (powered by Google Cloud)",
-      period: "April - June 2024",
-      description: "Developed interactive dashboards and analyzed business case studies",
-      metric: "100% Completion"
-    },
-    {
-      title: "Generative AI Intern",
-      company: "SmartBridge Virtual Program",
-      period: "Sept - Oct 2024",
-      description: "Applied core AI concepts to build real-world solutions using Google Cloud",
-      metric: "Certificate"
-    }
-  ];
+  const Avatar3D: React.FC = () => (
+    <motion.div
+      className="relative w-64 h-64 mx-auto mb-8"
+      whileHover="hover"
+      initial="initial"
+    >
+      <motion.div
+        className="w-full h-full rounded-full bg-gradient-to-br from-primary/20 to-accent/20 border border-primary/30 flex items-center justify-center overflow-hidden"
+        variants={{
+          initial: { scale: 1, rotateY: 0 },
+          hover: { scale: 1.05, rotateY: 10 }
+        }}
+        transition={{ duration: 0.3 }}
+        style={{ transformStyle: "preserve-3d" }}
+      >
+        <motion.div
+          className="text-8xl"
+          variants={{
+            initial: { rotate: 0 },
+            hover: { rotate: 5 }
+          }}
+          animate={{
+            y: [0, -10, 0],
+          }}
+          transition={{
+            y: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+          }}
+        >
+          👨‍💻
+        </motion.div>
+        
+        {/* Floating particles around avatar */}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 bg-primary/60 rounded-full"
+            style={{
+              top: `${20 + Math.sin(i * 60 * Math.PI / 180) * 40}%`,
+              left: `${50 + Math.cos(i * 60 * Math.PI / 180) * 40}%`,
+            }}
+            animate={{
+              scale: [1, 1.5, 1],
+              opacity: [0.6, 1, 0.6],
+              rotate: [0, 360]
+            }}
+            transition={{
+              duration: 3 + i * 0.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 0.3
+            }}
+          />
+        ))}
+      </motion.div>
+      
+      {/* Orbiting icons */}
+      {[Brain, Code, Zap, Trophy].map((Icon, index) => (
+        <motion.div
+          key={index}
+          className="absolute w-12 h-12 rounded-full bg-primary/20 backdrop-blur-sm border border-primary/30 flex items-center justify-center text-primary"
+          style={{
+            top: `${50 + Math.sin(index * 90 * Math.PI / 180) * 45}%`,
+            left: `${50 + Math.cos(index * 90 * Math.PI / 180) * 45}%`,
+            transform: 'translate(-50%, -50%)'
+          }}
+          animate={{
+            rotate: [0, 360]
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          whileHover={{ scale: 1.2, y: -5 }}
+        >
+          <Icon className="h-6 w-6" />
+        </motion.div>
+      ))}
+    </motion.div>
+  );
 
   return (
-    <section id="about" className="py-20 relative bg-gradient-to-b from-background to-background/50 overflow-hidden">
-      {/* Background Animation Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <FloatingElement intensity={0.5} className="absolute top-20 left-10">
-          <div className="w-20 h-20 bg-primary/10 rounded-full blur-xl" />
-        </FloatingElement>
-        <FloatingElement intensity={0.8} className="absolute bottom-20 right-10">
-          <div className="w-32 h-32 bg-accent/10 rounded-full blur-2xl" />
-        </FloatingElement>
-      </div>
-
+    <section id="about" className="py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <ScrollReveal className="text-center mb-16">
-          <Badge variant="outline" className="mb-4 border-primary/20 text-primary">
-            About Me
-          </Badge>
-          <motion.h2 
-            className="text-4xl sm:text-5xl font-bold mb-6"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            Building the Future with <span className="text-gradient">AI & Technology</span>
-          </motion.h2>
-          <motion.p 
-            className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            I'm a Computer Science student passionate about automating workflows and deploying 
-            real-world AI systems. Currently developing innovative solutions that bridge the gap 
-            between AI research and practical applications.
-          </motion.p>
+        <ScrollReveal>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold mb-6">
+              About <span className="text-gradient">Me</span>
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Passionate AI/LLM builder focused on creating intelligent automation tools 
+              and real-world AI applications that solve complex problems.
+            </p>
+          </div>
         </ScrollReveal>
 
-        {/* Skills Grid with 3D hover effects */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
-          {skills.map((skill, index) => (
-            <ScrollReveal key={skill.title} direction="up" delay={index * 0.1}>
-              <ScaleOnHover scale={1.08}>
-                <Card className="h-full glass-effect border-primary/10 hover:border-primary/20 transition-all duration-300 group cursor-pointer">
-                  <CardContent className="p-6 text-center">
-                    <FloatingElement intensity={0.3}>
-                      <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 mb-4 group-hover:bg-primary/20 transition-colors">
-                        <skill.icon className="h-8 w-8 text-primary" />
-                      </div>
-                    </FloatingElement>
-                    <motion.h3 
-                      className="font-semibold mb-3 text-lg"
-                      whileHover={{ color: "hsl(var(--primary))" }}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+          {/* Left Column - Avatar & Introduction */}
+          <ScrollReveal direction="left">
+            <div className="text-center lg:text-left">
+              <Avatar3D />
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+              >
+                <h3 className="text-2xl font-bold mb-4">Sayan Dutta</h3>
+                <p className="text-lg text-muted-foreground mb-6">
+                  3rd-year Computer Science Engineering student at UIT Burdwan with a passion 
+                  for AI/LLM development and automation. Currently working on Savitr-AI, 
+                  an intelligent delivery optimization system.
+                </p>
+                
+                <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
+                  {["AI Enthusiast", "LLM Builder", "Full Stack Dev", "Problem Solver"].map((tag, index) => (
+                    <motion.div
+                      key={tag}
+                      initial={{ opacity: 0, scale: 0 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.5 + index * 0.1 }}
+                      whileHover={{ scale: 1.1, y: -2 }}
                     >
-                      {skill.title}
-                    </motion.h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{skill.description}</p>
-                  </CardContent>
-                </Card>
-              </ScaleOnHover>
-            </ScrollReveal>
-          ))}
+                      <Badge variant="outline" className="bg-primary/5 border-primary/20">
+                        {tag}
+                      </Badge>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+          </ScrollReveal>
+
+          {/* Right Column - Skills */}
+          <ScrollReveal direction="right">
+            <div>
+              <h3 className="text-2xl font-bold mb-6">Technical Skills</h3>
+              <div className="space-y-6">
+                {skills.map((skill, index) => (
+                  <motion.div
+                    key={skill.name}
+                    initial={{ opacity: 0, x: 50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2">
+                        <skill.icon className="h-5 w-5 text-primary" />
+                        <span className="font-medium">{skill.name}</span>
+                      </div>
+                      <span className="text-sm text-muted-foreground">{skill.level}%</span>
+                    </div>
+                    <div className="w-full bg-muted/30 rounded-full h-2">
+                      <motion.div
+                        className="bg-gradient-to-r from-primary to-accent h-2 rounded-full"
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${skill.level}%` }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1, delay: 0.5 + index * 0.1 }}
+                      />
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </ScrollReveal>
         </div>
 
-        {/* Experience & Education Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-20">
-          <ScrollReveal direction="left">
-            <Badge variant="outline" className="mb-4 border-primary/20 text-primary">
-              Experience
-            </Badge>
-            <h3 className="text-3xl font-bold mb-6">
-              Professional <span className="text-gradient">Journey</span>
-            </h3>
-            <div className="space-y-6">
-              {experience.map((exp, index) => (
+        {/* Education Section */}
+        <ScrollReveal>
+          <Card className="mb-12 glass-effect border-primary/20">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <GraduationCap className="h-6 w-6 text-primary" />
+                Education
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-semibold text-lg">{education.degree}</h4>
+                  <p className="text-primary">{education.institution}</p>
+                  <p className="text-muted-foreground">{education.period}</p>
+                  <p className="text-lg font-bold mt-2">CGPA: {education.cgpa}</p>
+                </div>
+                <div>
+                  <h5 className="font-medium mb-2">Key Areas:</h5>
+                  <div className="flex flex-wrap gap-2">
+                    {education.achievements.map((achievement, index) => (
+                      <motion.div
+                        key={achievement}
+                        initial={{ opacity: 0, scale: 0 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: index * 0.1 }}
+                        whileHover={{ scale: 1.05 }}
+                      >
+                        <Badge variant="outline">{achievement}</Badge>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </ScrollReveal>
+
+        {/* Experience Timeline */}
+        <ScrollReveal>
+          <div className="mb-12">
+            <h3 className="text-2xl font-bold mb-8 text-center">Experience & Projects</h3>
+            <div className="space-y-8">
+              {experiences.map((exp, index) => (
                 <motion.div
                   key={exp.title}
-                  initial={{ opacity: 0, x: -50 }}
+                  initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  transition={{ delay: index * 0.2 }}
                 >
                   <ScaleOnHover>
-                    <Card className="glass-effect border-primary/10 hover:border-primary/20 transition-all duration-300 cursor-pointer">
+                    <Card className="glass-effect border-primary/10 hover:border-primary/30 transition-all duration-300">
                       <CardContent className="p-6">
-                        <div className="flex items-center justify-between mb-3">
-                          <Badge variant="outline" className="text-primary border-primary/30">
-                            {exp.period}
-                          </Badge>
-                          <motion.div 
-                            className="text-lg font-bold text-primary"
-                            animate={{ scale: [1, 1.1, 1] }}
-                            transition={{ duration: 2, repeat: Infinity }}
-                          >
-                            {exp.metric}
-                          </motion.div>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                          <div>
+                            <h4 className="font-bold text-lg">{exp.title}</h4>
+                            <p className="text-primary font-medium">{exp.company}</p>
+                            <p className="text-sm text-muted-foreground">{exp.period}</p>
+                          </div>
+                          <div className="md:col-span-2">
+                            <p className="text-muted-foreground mb-3">{exp.description}</p>
+                            <div className="flex flex-wrap gap-2">
+                              {exp.skills.map((skill, skillIndex) => (
+                                <motion.div
+                                  key={skill}
+                                  initial={{ opacity: 0, scale: 0 }}
+                                  whileInView={{ opacity: 1, scale: 1 }}
+                                  transition={{ delay: 0.3 + skillIndex * 0.05 }}
+                                  whileHover={{ scale: 1.1, y: -2 }}
+                                >
+                                  <Badge variant="secondary" className="text-xs">
+                                    {skill}
+                                  </Badge>
+                                </motion.div>
+                              ))}
+                            </div>
+                          </div>
                         </div>
-                        <h4 className="font-semibold mb-1 text-lg">{exp.title}</h4>
-                        <p className="text-muted-foreground mb-2 font-medium">{exp.company}</p>
-                        <p className="text-sm text-muted-foreground">{exp.description}</p>
                       </CardContent>
                     </Card>
                   </ScaleOnHover>
                 </motion.div>
               ))}
             </div>
-          </ScrollReveal>
-          
-          <ScrollReveal direction="right">
-            <Badge variant="outline" className="mb-4 border-primary/20 text-primary">
-              Education & Achievements
-            </Badge>
-            <h3 className="text-3xl font-bold mb-6">
-              Academic <span className="text-gradient">Excellence</span>
-            </h3>
-            
-            <ScaleOnHover>
-              <Card className="glass-effect border-primary/10 mb-6 cursor-pointer">
-                <CardContent className="p-6">
-                  <div className="flex items-center mb-4">
-                    <FloatingElement intensity={0.2}>
-                      <GraduationCap className="h-8 w-8 text-primary mr-3" />
-                    </FloatingElement>
-                    <div>
-                      <h4 className="font-semibold text-lg">B.Tech in CSE</h4>
-                      <p className="text-muted-foreground">University Institute of Technology, Burdwan</p>
-                      <p className="text-sm text-primary">CGPA: 8.79 (till 5th Semester) • 2022-Present</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </ScaleOnHover>
-
-            <div className="space-y-3">
-              <h4 className="font-semibold mb-4">Key Achievements:</h4>
-              {achievements.map((achievement, index) => (
-                <motion.div
-                  key={achievement}
-                  initial={{ opacity: 0, x: 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={{ x: 10, transition: { duration: 0.2 } }}
-                  className="flex items-start space-x-3 cursor-pointer"
-                >
-                  <FloatingElement intensity={0.1}>
-                    <Award className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                  </FloatingElement>
-                  <span className="text-sm">{achievement}</span>
-                </motion.div>
-              ))}
-            </div>
-          </ScrollReveal>
-        </div>
-
-        {/* Tech Stack with scroll reveal */}
-        <ScrollReveal className="text-center">
-          <Badge variant="outline" className="mb-4 border-primary/20 text-primary">
-            Tech Stack
-          </Badge>
-          <h3 className="text-3xl font-bold mb-8">
-            Technologies I <span className="text-gradient">Work With</span>
-          </h3>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 max-w-4xl mx-auto">
-            {[
-              "Python", "JavaScript", "React", "Node.js", "MongoDB", "PostgreSQL",
-              "LangChain", "OpenAI API", "TensorFlow", "Google Cloud", "Git", "Docker"
-            ].map((tech, index) => (
-              <motion.div
-                key={tech}
-                initial={{ opacity: 0, scale: 0.5, rotateY: -90 }}
-                whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
-                viewport={{ once: true }}
-                transition={{ 
-                  duration: 0.6, 
-                  delay: index * 0.05,
-                  type: "spring",
-                  stiffness: 200
-                }}
-                whileHover={{ 
-                  scale: 1.1, 
-                  rotateY: 10,
-                  z: 20,
-                  transition: { duration: 0.3 }
-                }}
-                className="bg-primary/5 border border-primary/20 rounded-lg p-3 hover:bg-primary/10 transition-colors cursor-pointer"
-                style={{ transformStyle: "preserve-3d" }}
-              >
-                <span className="text-sm font-medium">{tech}</span>
-              </motion.div>
-            ))}
           </div>
         </ScrollReveal>
       </div>

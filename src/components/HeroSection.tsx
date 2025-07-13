@@ -24,7 +24,7 @@ const HeroSection: React.FC = () => {
       opacity: 1,
       transition: {
         duration: 0.8,
-        ease: [0.4, 0, 0.2, 1]
+        ease: "easeOut"
       }
     }
   };
@@ -35,7 +35,7 @@ const HeroSection: React.FC = () => {
       width: "100%",
       transition: {
         duration: 2,
-        ease: [0.4, 0, 0.2, 1],
+        ease: "easeOut",
         delay: 0.5
       }
     }
@@ -47,7 +47,7 @@ const HeroSection: React.FC = () => {
       transition: {
         duration: 3,
         repeat: Infinity,
-        ease: [0.4, 0, 0.2, 1]
+        ease: "easeInOut"
       }
     }
   };
@@ -291,7 +291,7 @@ const HeroSection: React.FC = () => {
           transition={{
             duration: 4 + index,
             repeat: Infinity,
-            ease: [0.4, 0, 0.2, 1],
+            ease: "easeInOut",
             delay: parseInt(element.delay)
           }}
         />

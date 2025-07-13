@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Github, Bot, BarChart3, Car, MessageSquare } from 'lucide-react';
+import { ExternalLink, Github, Bot, BarChart3, Car, MessageSquare, Monitor, Code2 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -18,7 +18,8 @@ const ProjectsSection: React.FC = () => {
       github: "https://github.com/duttasayan835",
       live: "#",
       featured: true,
-      status: "Ongoing"
+      status: "Ongoing",
+      mockup: "savitr"
     },
     {
       id: 2,
@@ -30,7 +31,8 @@ const ProjectsSection: React.FC = () => {
       github: "https://github.com/duttasayan835",
       live: "#",
       featured: true,
-      status: "Completed"
+      status: "Completed",
+      mockup: "chatbot"
     },
     {
       id: 3,
@@ -42,9 +44,56 @@ const ProjectsSection: React.FC = () => {
       github: "https://github.com/duttasayan835",
       live: "#",
       featured: false,
-      status: "Completed"
+      status: "Completed",
+      mockup: "dashboard"
     }
   ];
+
+  const LiveDemoFrame: React.FC<{ project: typeof projects[0] }> = ({ project }) => (
+    <motion.div
+      className="relative w-full h-48 bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg overflow-hidden"
+      whileHover="hover"
+      initial="initial"
+    >
+      <motion.div
+        className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center"
+        variants={{
+          initial: { opacity: 1, scale: 1 },
+          hover: { opacity: 0, scale: 1.1 }
+        }}
+        transition={{ duration: 0.3 }}
+      >
+        <project.icon className="h-16 w-16 text-primary" />
+      </motion.div>
+      
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10"
+        variants={{
+          initial: { opacity: 0, y: 20 },
+          hover: { opacity: 1, y: 0 }
+        }}
+        transition={{ duration: 0.3, delay: 0.1 }}
+      >
+        <div className="p-4 h-full flex flex-col">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-3 h-3 rounded-full bg-red-500"></div>
+            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+            <div className="w-3 h-3 rounded-full bg-green-500"></div>
+            <div className="flex-1 bg-muted/30 rounded px-2 py-1 text-xs text-muted-foreground">
+              {project.mockup}.demo.app
+            </div>
+          </div>
+          <div className="flex-1 bg-background/50 rounded border border-primary/20 p-3">
+            <div className="space-y-2">
+              <div className="h-2 bg-primary/30 rounded w-3/4"></div>
+              <div className="h-2 bg-accent/30 rounded w-1/2"></div>
+              <div className="h-2 bg-primary/20 rounded w-2/3"></div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
 
   return (
     <section id="projects" className="py-20 relative">
@@ -73,55 +122,79 @@ const ProjectsSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: index * 0.2 }}
-              whileHover={{ y: -5 }}
-              className="group"
+              whileHover={{ 
+                y: -10,
+                rotateX: 5,
+                rotateY: 5,
+                scale: 1.02
+              }}
+              className="group perspective-1000"
+              style={{ transformStyle: "preserve-3d" }}
             >
-              <Card className="h-full glass-effect border-primary/20 hover:border-primary/40 transition-all duration-300 overflow-hidden">
-                <div className="relative h-48 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
-                  <project.icon className="h-16 w-16 text-primary group-hover:scale-110 transition-transform duration-300" />
-                  <div className="absolute top-4 right-4 flex gap-2">
-                    <Badge variant="secondary" className="bg-primary/20 text-primary border-primary/30">
-                      Featured
-                    </Badge>
-                    <Badge 
-                      variant="outline" 
-                      className={project.status === 'Ongoing' ? 'bg-yellow-500/20 text-yellow-600 border-yellow-500/30' : 'bg-green-500/20 text-green-600 border-green-500/30'}
-                    >
-                      {project.status}
-                    </Badge>
-                  </div>
-                </div>
+              <Card className="h-full glass-effect border-primary/20 hover:border-primary/40 transition-all duration-500 overflow-hidden transform-gpu hover:shadow-2xl hover:shadow-primary/20">
+                <LiveDemoFrame project={project} />
                 
                 <CardHeader>
-                  <CardTitle className="text-xl group-hover:text-primary transition-colors duration-300">
-                    {project.title}
-                  </CardTitle>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-xl group-hover:text-primary transition-colors duration-300 flex items-center gap-2">
+                      <motion.div
+                        animate={{ rotate: [0, 10, -10, 0] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                      >
+                        <project.icon className="h-5 w-5" />
+                      </motion.div>
+                      {project.title}
+                    </CardTitle>
+                    <div className="flex gap-2">
+                      <Badge variant="secondary" className="bg-primary/20 text-primary border-primary/30">
+                        Featured
+                      </Badge>
+                      <Badge 
+                        variant="outline" 
+                        className={project.status === 'Ongoing' ? 'bg-yellow-500/20 text-yellow-600 border-yellow-500/30' : 'bg-green-500/20 text-green-600 border-green-500/30'}
+                      >
+                        {project.status}
+                      </Badge>
+                    </div>
+                  </div>
                 </CardHeader>
                 
                 <CardContent className="space-y-4">
                   <p className="text-muted-foreground">{project.description}</p>
                   
                   <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
-                      <Badge key={tag} variant="outline" className="text-xs">
-                        {tag}
-                      </Badge>
+                    {project.tags.map((tag, tagIndex) => (
+                      <motion.div
+                        key={tag}
+                        initial={{ opacity: 0, scale: 0 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: tagIndex * 0.1 }}
+                        whileHover={{ scale: 1.1, y: -2 }}
+                      >
+                        <Badge variant="outline" className="text-xs hover:bg-primary/10">
+                          {tag}
+                        </Badge>
+                      </motion.div>
                     ))}
                   </div>
                   
                   <div className="flex space-x-3 pt-4">
-                    <Button variant="outline" size="sm" className="flex-1" asChild>
-                      <a href={project.github} target="_blank" rel="noopener noreferrer">
-                        <Github className="h-4 w-4 mr-2" />
-                        Code
-                      </a>
-                    </Button>
-                    <Button size="sm" className="flex-1" asChild>
-                      <a href={project.live} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="h-4 w-4 mr-2" />
-                        View Project
-                      </a>
-                    </Button>
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                      <Button variant="outline" size="sm" className="flex-1" asChild>
+                        <a href={project.github} target="_blank" rel="noopener noreferrer">
+                          <Github className="h-4 w-4 mr-2" />
+                          Code
+                        </a>
+                      </Button>
+                    </motion.div>
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                      <Button size="sm" className="flex-1" asChild>
+                        <a href={project.live} target="_blank" rel="noopener noreferrer">
+                          <ExternalLink className="h-4 w-4 mr-2" />
+                          View Project
+                        </a>
+                      </Button>
+                    </motion.div>
                   </div>
                 </CardContent>
               </Card>
@@ -146,13 +219,24 @@ const ProjectsSection: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
-                whileHover={{ y: -3 }}
+                whileHover={{ 
+                  y: -5,
+                  rotateX: 5,
+                  rotateY: 5,
+                  scale: 1.02
+                }}
+                style={{ transformStyle: "preserve-3d" }}
               >
-                <Card className="h-full glass-effect border-primary/10 hover:border-primary/30 transition-all duration-300 group">
+                <Card className="h-full glass-effect border-primary/10 hover:border-primary/30 transition-all duration-300 group transform-gpu hover:shadow-xl">
                   <CardHeader className="pb-3">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
-                        <project.icon className="h-6 w-6 text-primary" />
+                        <motion.div
+                          whileHover={{ rotate: 360 }}
+                          transition={{ duration: 0.5 }}
+                        >
+                          <project.icon className="h-6 w-6 text-primary" />
+                        </motion.div>
                         <CardTitle className="text-lg group-hover:text-primary transition-colors duration-300">
                           {project.title}
                         </CardTitle>
@@ -183,16 +267,20 @@ const ProjectsSection: React.FC = () => {
                     </div>
                     
                     <div className="flex space-x-2">
-                      <Button variant="ghost" size="sm" className="p-2 h-8 w-8" asChild>
-                        <a href={project.github} target="_blank" rel="noopener noreferrer">
-                          <Github className="h-4 w-4" />
-                        </a>
-                      </Button>
-                      <Button variant="ghost" size="sm" className="p-2 h-8 w-8" asChild>
-                        <a href={project.live} target="_blank" rel="noopener noreferrer">
-                          <ExternalLink className="h-4 w-4" />
-                        </a>
-                      </Button>
+                      <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                        <Button variant="ghost" size="sm" className="p-2 h-8 w-8" asChild>
+                          <a href={project.github} target="_blank" rel="noopener noreferrer">
+                            <Github className="h-4 w-4" />
+                          </a>
+                        </Button>
+                      </motion.div>
+                      <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                        <Button variant="ghost" size="sm" className="p-2 h-8 w-8" asChild>
+                          <a href={project.live} target="_blank" rel="noopener noreferrer">
+                            <ExternalLink className="h-4 w-4" />
+                          </a>
+                        </Button>
+                      </motion.div>
                     </div>
                   </CardContent>
                 </Card>
@@ -208,12 +296,14 @@ const ProjectsSection: React.FC = () => {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="text-center mt-12"
         >
-          <Button variant="outline" size="lg" className="glass-effect" asChild>
-            <a href="https://github.com/duttasayan835" target="_blank" rel="noopener noreferrer">
-              View All Projects on GitHub
-              <Github className="ml-2 h-5 w-5" />
-            </a>
-          </Button>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Button variant="outline" size="lg" className="glass-effect" asChild>
+              <a href="https://github.com/duttasayan835" target="_blank" rel="noopener noreferrer">
+                View All Projects on GitHub
+                <Github className="ml-2 h-5 w-5" />
+              </a>
+            </Button>
+          </motion.div>
         </motion.div>
       </div>
     </section>
