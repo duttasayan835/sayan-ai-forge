@@ -25,7 +25,7 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="relative py-16 bg-background/80 backdrop-blur-sm border-t border-primary/10">
+    <footer className="relative py-16 bg-background border-t border-primary/10 z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           {/* Brand */}

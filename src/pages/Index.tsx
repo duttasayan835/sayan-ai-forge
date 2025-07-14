@@ -8,7 +8,7 @@ import ContactSection from '@/components/ContactSection';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ThreeBackground from '@/components/ThreeBackground';
-import ParticleSystem from '@/components/ParticleSystem';
+
 import ThemeToggle from '@/components/ThemeToggle';
 import CursorFollowEffect from '@/components/CursorFollowEffect';
 import LoadingAnimation from '@/components/LoadingAnimation';
@@ -38,7 +38,7 @@ const Index = () => {
       
       {/* Main Content */}
       <Navbar />
-      <main className="relative z-10 bg-background/90 backdrop-blur-sm">
+      <main className="relative z-10 min-h-screen bg-background">
         <HeroSection />
         <AboutSection />
         <ProjectsSection />
