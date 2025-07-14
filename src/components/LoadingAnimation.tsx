@@ -35,7 +35,7 @@ const LoadingAnimation: React.FC<LoadingAnimationProps> = ({ onComplete }) => {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, scale: 0.9 }}
           transition={{ duration: 0.5 }}
-          className="fixed inset-0 bg-background z-50 flex items-center justify-center"
+          className="fixed inset-0 bg-background/95 backdrop-blur-sm z-50 flex items-center justify-center"
         >
           <div className="text-center">
             {/* Simple CSS Loading Animation */}

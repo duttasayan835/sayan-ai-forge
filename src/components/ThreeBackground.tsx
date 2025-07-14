@@ -4,6 +4,57 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Points, PointMaterial, Sphere, MeshDistortMaterial, Float } from '@react-three/drei';
 import * as THREE from 'three';
 
+// Additional Particle System for more variety
+function AdditionalParticles() {
+  const ref = useRef<THREE.Points>(null);
+  const [positions, colors] = useMemo(() => {
+    const positions = new Float32Array(1000 * 3);
+    const colors = new Float32Array(1000 * 3);
+    
+    for (let i = 0; i < 1000; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * 50;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 50;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 25;
+      
+      const color = new THREE.Color();
+      color.setHSL(0.5 + Math.random() * 0.3, 0.8, 0.6);
+      colors[i * 3] = color.r;
+      colors[i * 3 + 1] = color.g;
+      colors[i * 3 + 2] = color.b;
+    }
+    
+    return [positions, colors];
+  }, []);
+
+  useFrame((state) => {
+    if (ref.current && ref.current.geometry && ref.current.geometry.attributes.position) {
+      ref.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.05) * 0.1;
+      ref.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.03) * 0.1;
+      
+      const positions = ref.current.geometry.attributes.position.array as Float32Array;
+      for (let i = 0; i < positions.length; i += 3) {
+        const x = positions[i];
+        const z = positions[i + 2];
+        positions[i + 1] += Math.sin(state.clock.elapsedTime + x * 0.1 + z * 0.1) * 0.002;
+      }
+      ref.current.geometry.attributes.position.needsUpdate = true;
+    }
+  });
+
+  return (
+    <Points ref={ref} positions={positions} colors={colors}>
+      <PointMaterial
+        transparent
+        vertexColors
+        size={1}
+        sizeAttenuation={true}
+        depthWrite={false}
+        blending={THREE.AdditiveBlending}
+      />
+    </Points>
+  );
+}
+
 function ParticleField() {
   const ref = useRef<THREE.Points>(null);
   
@@ -158,13 +209,20 @@ function MorphingGeometry() {
 
 const ThreeBackground: React.FC = () => {
   return (
-    <div className="fixed inset-0 -z-10">
+    <div className="fixed inset-0 -z-10 overflow-hidden">
       <Canvas
         camera={{ position: [0, 0, 10], fov: 60 }}
-        style={{ background: 'transparent' }}
-        gl={{ antialias: true, alpha: true }}
-        onCreated={({ gl }) => {
+        style={{ background: 'transparent', height: '100vh', width: '100vw' }}
+        gl={{ 
+          antialias: true, 
+          alpha: true,
+          preserveDrawingBuffer: false,
+          powerPreference: "high-performance"
+        }}
+        onCreated={({ gl, scene }) => {
           gl.setClearColor(0x000000, 0);
+          gl.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+          scene.background = null;
         }}
       >
         <Suspense fallback={null}>
@@ -173,7 +231,9 @@ const ThreeBackground: React.FC = () => {
           <pointLight position={[-10, -10, -10]} color="#8B5CF6" intensity={0.6} />
           <pointLight position={[0, 10, 5]} color="#FF0080" intensity={0.4} />
           
+          {/* Consolidated Particle System */}
           <ParticleField />
+          <AdditionalParticles />
           <FloatingOrb position={[5, 2, -8]} color="#00D9FF" scale={1.5} />
           <FloatingOrb position={[-6, -3, -10]} color="#FF0080" scale={1.2} />
           <FloatingOrb position={[3, -4, -6]} color="#00FF88" scale={0.8} />

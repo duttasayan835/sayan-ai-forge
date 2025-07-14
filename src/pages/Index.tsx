@@ -27,7 +27,6 @@ const Index = () => {
       
       {/* Background Effects */}
       <ThreeBackground />
-      <ParticleSystem />
       
       {/* Cursor Effects */}
       <CursorFollowEffect />
