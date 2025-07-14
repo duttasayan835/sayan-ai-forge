@@ -1,11 +1,48 @@
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, ArrowRight, Play, Star, Users, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
 const HeroSection: React.FC = () => {
+  const videoRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Load Cloudinary Video Player script
+    const script = document.createElement('script');
+    script.src = 'https://unpkg.com/cloudinary-video-player@1.10.6/dist/cld-video-player.min.js';
+    script.async = true;
+    
+    const link = document.createElement('link');
+    link.href = 'https://unpkg.com/cloudinary-video-player@1.10.6/dist/cld-video-player.min.css';
+    link.rel = 'stylesheet';
+    
+    document.head.appendChild(link);
+    document.body.appendChild(script);
+
+    script.onload = () => {
+      if ((window as any).cloudinary && videoRef.current) {
+        const player = (window as any).cloudinary.videoPlayer(videoRef.current, {
+          cloudName: 'dyo65gtea',
+          publicId: 'istockphoto-1438827703-640_adpp_is_ghgkar',
+          profile: 'cld-default',
+          fluid: true,
+          controls: false,
+          autoplay: true,
+          muted: true,
+          loop: true,
+          poster: 'auto'
+        });
+      }
+    };
+
+    return () => {
+      document.head.removeChild(link);
+      document.body.removeChild(script);
+    };
+  }, []);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -56,9 +93,20 @@ const HeroSection: React.FC = () => {
   ];
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-background via-background to-primary/5">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-5" />
+    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      {/* Video Background */}
+      <div className="absolute inset-0 w-full h-full overflow-hidden">
+        <div 
+          ref={videoRef}
+          className="absolute inset-0 w-full h-full object-cover scale-110"
+          style={{ 
+            filter: 'brightness(0.3) blur(1px)',
+            zIndex: -1
+          }}
+        />
+        {/* Fallback gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-background/80 via-background/60 to-primary/20" />
+      </div>
       
       {/* Floating Particles */}
       <div className="absolute inset-0 overflow-hidden">
