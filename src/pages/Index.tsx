@@ -21,7 +21,7 @@ const Index = () => {
   };
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden">
+    <div className="relative min-h-screen overflow-x-hidden bg-background">
       {/* Loading Animation */}
       {isLoading && <LoadingAnimation onComplete={handleLoadingComplete} />}
       
@@ -38,7 +38,7 @@ const Index = () => {
       
       {/* Main Content */}
       <Navbar />
-      <main className="relative z-10">
+      <main className="relative z-10 bg-background/90 backdrop-blur-sm">
         <HeroSection />
         <AboutSection />
         <ProjectsSection />

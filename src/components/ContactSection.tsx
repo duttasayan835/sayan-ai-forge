@@ -64,7 +64,7 @@ const ContactSection: React.FC = () => {
   ];
 
   return (
-    <section id="contact" className="py-20 relative overflow-hidden">
+    <section id="contact" className="py-20 relative z-10 bg-background/80 backdrop-blur-sm overflow-hidden">
       {/* Flying Animation Overlay */}
       <AnimatePresence>
         {showFlyingAnimation && (

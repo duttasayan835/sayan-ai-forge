@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const ResumeSection: React.FC = () => {
   return (
-    <section id="resume" className="py-20 relative">
+    <section id="resume" className="py-20 relative z-10 bg-background/80 backdrop-blur-sm">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
