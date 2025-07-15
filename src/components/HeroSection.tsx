@@ -1,9 +1,7 @@
-
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, ArrowRight, Play, Star, Users, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 
 const HeroSection: React.FC = () => {
   const videoRef = useRef<HTMLDivElement>(null);
@@ -76,16 +74,6 @@ const HeroSection: React.FC = () => {
     }
   };
 
-  const floatingVariants = {
-    float: {
-      y: [-10, 10, -10],
-      transition: {
-        duration: 3,
-        repeat: Infinity
-      }
-    }
-  };
-
   const stats = [
     { icon: Users, value: "10+", label: "AI Projects" },
     { icon: Zap, value: "3+", label: "Years Experience" },
@@ -137,18 +125,6 @@ const HeroSection: React.FC = () => {
         animate="visible"
         className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto"
       >
-        {/* Announcement Badge with slide animation */}
-        <motion.div 
-          variants={itemVariants} 
-          className="mb-8"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <Badge variant="outline" className="px-4 py-2 text-sm font-medium border-primary/20 bg-primary/5 hover:bg-primary/10 transition-colors animate-pulse-glow">
-            🚀 Available for AI/LLM Development Opportunities
-          </Badge>
-        </motion.div>
-
         {/* Main Headline with typewriter effect */}
         <motion.div variants={itemVariants} className="mb-6">
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold leading-tight">
