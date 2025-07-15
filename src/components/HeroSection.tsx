@@ -81,7 +81,7 @@ const HeroSection: React.FC = () => {
   ];
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
+    <section id="home" className="min-h-screen flex items-start justify-center relative overflow-hidden pt-32">
       {/* Video Background */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         <div 
