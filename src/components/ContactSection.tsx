@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 const ContactSection: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -22,17 +23,39 @@ const ContactSection: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
     setShowFlyingAnimation(true);
+    
+    try {
+      // Send email via Supabase edge function
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+        body: formData
+      });
 
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+      if (error) {
+        throw error;
+      }
+
       setShowFlyingAnimation(false);
+      
+      // Show success toast
       toast({
-        title: "Message sent!",
+        title: "Message sent successfully!",
         description: "Thank you for reaching out. I'll get back to you soon.",
       });
+      
+      // Reset form
       setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 3000);
+    } catch (error) {
+      console.error('Error sending email:', error);
+      setShowFlyingAnimation(false);
+      
+      toast({
+        title: "Failed to send message",
+        description: "Please try again or contact me directly at duttasayan835@gmail.com",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

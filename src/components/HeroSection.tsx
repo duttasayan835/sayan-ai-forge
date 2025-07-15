@@ -83,13 +83,12 @@ const HeroSection: React.FC = () => {
   return (
     <section id="home" className="min-h-screen flex items-start justify-center relative overflow-hidden pt-32">
       {/* Video Background */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden">
+      <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
         <div 
           ref={videoRef}
           className="absolute inset-0 w-full h-full object-cover scale-110"
           style={{ 
-            filter: 'brightness(0.3) blur(1px)',
-            zIndex: -1
+            filter: 'brightness(0.3) blur(1px)'
           }}
         />
         {/* Fallback gradient background */}
