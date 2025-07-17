@@ -8,9 +8,10 @@ import ContactSection from '@/components/ContactSection';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ThreeBackground from '@/components/ThreeBackground';
+import ImmersiveHero from '@/components/ImmersiveHero';
 
 import ThemeToggle from '@/components/ThemeToggle';
-import CursorFollowEffect from '@/components/CursorFollowEffect';
+import EnhancedCursor from '@/components/EnhancedCursor';
 import LoadingAnimation from '@/components/LoadingAnimation';
 
 const Index = () => {
@@ -28,8 +29,8 @@ const Index = () => {
       {/* Background Effects */}
       <ThreeBackground />
       
-      {/* Cursor Effects */}
-      <CursorFollowEffect />
+      {/* Enhanced Cursor Effects */}
+      <EnhancedCursor />
       
       {/* Theme Toggle */}
       <div className="fixed top-4 right-4 z-40">
@@ -39,7 +40,7 @@ const Index = () => {
       {/* Main Content */}
       <Navbar />
       <main className="relative z-10 min-h-screen bg-background">
-        <HeroSection />
+        <ImmersiveHero />
         <AboutSection />
         <ProjectsSection />
         <ResumeSection />
