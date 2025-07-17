@@ -1,19 +1,20 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import Advanced3DScene from './Advanced3DScene';
 import GlassMorphism from './GlassMorphism';
 import WaterDroplets from './WaterDroplets';
+import ParticleSystem from './ParticleSystem';
+import { HoverButton } from './SimplifiedMicroInteractions';
 
 const ImmersiveHero: React.FC = () => {
   return (
     <section className="relative min-h-screen overflow-hidden">
       {/* Background effects */}
       <div className="absolute inset-0 z-0">
-        <Advanced3DScene className="opacity-80" />
+        <ParticleSystem />
       </div>
       
       {/* Water droplet effect overlay */}
-      <WaterDroplets className="z-10" />
+      <WaterDroplets className="z-10" count={10} />
 
       {/* Hero content */}
       <div className="container relative z-20 mx-auto px-4 py-24 flex flex-col items-center justify-center min-h-screen">
@@ -53,6 +54,18 @@ const ImmersiveHero: React.FC = () => {
             </motion.div>
           ))}
         </div>
+        
+        {/* CTA Button */}
+        <motion.div
+          className="mt-12"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.6 }}
+        >
+          <HoverButton className="text-lg py-4 px-8">
+            Get Started
+          </HoverButton>
+        </motion.div>
         
         {/* Scroll indicator */}
         <motion.div 

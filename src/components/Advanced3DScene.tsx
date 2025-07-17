@@ -126,7 +126,7 @@ function Floating3DText() {
   return (
     <Center ref={textRef} position={[0, 3, -1]}>
       <Text3D
-        font="/fonts/helvetiker_regular.typeface.json"
+        font="https://cdn.jsdelivr.net/npm/three/examples/fonts/helvetiker_regular.typeface.json"
         size={0.5}
         height={0.1}
         curveSegments={12}

@@ -11,7 +11,7 @@ import ThreeBackground from '@/components/ThreeBackground';
 import ImmersiveHero from '@/components/ImmersiveHero';
 
 import ThemeToggle from '@/components/ThemeToggle';
-import EnhancedCursor from '@/components/EnhancedCursor';
+import { LikeButton, HoverButton } from '@/components/SimplifiedMicroInteractions';
 import LoadingAnimation from '@/components/LoadingAnimation';
 
 const Index = () => {
@@ -29,12 +29,10 @@ const Index = () => {
       {/* Background Effects */}
       <ThreeBackground />
       
-      {/* Enhanced Cursor Effects */}
-      <EnhancedCursor />
-      
-      {/* Theme Toggle */}
-      <div className="fixed top-4 right-4 z-40">
+      {/* Basic interaction */}
+      <div className="fixed bottom-4 right-4 z-40 flex items-center gap-4">
         <ThemeToggle />
+        <LikeButton />
       </div>
       
       {/* Main Content */}
