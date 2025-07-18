@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Download, Mail, Github, Linkedin, ExternalLink } from 'lucide-react';
 import GlassMorphism from './GlassMorphism';
 import WaterDroplets from './WaterDroplets';
-import PortfolioHero3D from './PortfolioHero3D';
+import CSSParticles from './CSSParticles';
 import PortfolioFloatingElements from './PortfolioFloatingElements';
 import { HoverButton } from './SimplifiedMicroInteractions';
 
@@ -36,8 +36,8 @@ const ImmersiveHero: React.FC = () => {
       <div className="absolute bottom-1/3 right-1/6 w-96 h-96 bg-accent/8 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
       <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-r from-primary/5 to-accent/5 rounded-full blur-2xl animate-float" style={{ animationDelay: '4s' }} />
       
-      {/* 3D Portfolio Background */}
-      <PortfolioHero3D className="z-0" />
+      {/* CSS-based particle background */}
+      <CSSParticles />
       
       {/* Floating portfolio icons */}
       <PortfolioFloatingElements />
