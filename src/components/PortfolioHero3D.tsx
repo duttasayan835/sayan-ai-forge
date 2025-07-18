@@ -4,23 +4,19 @@ import {
   Sphere, 
   Box,
   Torus,
-  Octahedron,
   MeshDistortMaterial, 
   Float, 
   Environment,
   Sparkles,
-  OrbitControls,
-  Text3D,
-  Center,
-  MeshTransmissionMaterial
+  OrbitControls
 } from '@react-three/drei';
 import { motion } from 'framer-motion';
 import * as THREE from 'three';
 
-// Floating geometric shape for portfolio aesthetics
+// Simplified geometric shape for portfolio aesthetics
 function GeometricShape({ position, shape = 'sphere', color, scale = 1 }: { 
   position: [number, number, number], 
-  shape?: 'sphere' | 'box' | 'torus' | 'octahedron',
+  shape?: 'sphere' | 'box' | 'torus',
   color: string,
   scale?: number 
 }) {
@@ -36,29 +32,26 @@ function GeometricShape({ position, shape = 'sphere', color, scale = 1 }: {
   const geometry = {
     sphere: <sphereGeometry args={[0.8 * scale, 32, 32]} />,
     box: <boxGeometry args={[1.2 * scale, 1.2 * scale, 1.2 * scale]} />,
-    torus: <torusGeometry args={[0.8 * scale, 0.3 * scale, 16, 100]} />,
-    octahedron: <octahedronGeometry args={[1 * scale]} />
+    torus: <torusGeometry args={[0.8 * scale, 0.3 * scale, 16, 100]} />
   };
 
   return (
     <Float speed={1.5} rotationIntensity={0.8} floatIntensity={1.5}>
       <mesh ref={meshRef} position={position}>
         {geometry[shape]}
-        <MeshTransmissionMaterial
+        <meshStandardMaterial
           color={color}
-          thickness={0.5}
-          roughness={0.1}
-          transmission={0.9}
-          ior={1.5}
-          chromaticAberration={0.02}
-          backside={true}
+          metalness={0.6}
+          roughness={0.2}
+          transparent
+          opacity={0.8}
         />
       </mesh>
     </Float>
   );
 }
 
-// Glass morphism sphere
+// Simplified glass sphere
 function GlassSphere({ position }: { position: [number, number, number] }) {
   return (
     <Float speed={2} rotationIntensity={1} floatIntensity={2}>
@@ -78,7 +71,7 @@ function GlassSphere({ position }: { position: [number, number, number] }) {
   );
 }
 
-// Wireframe design element
+// Simple wireframe element
 function WireframeElement({ position }: { position: [number, number, number] }) {
   const meshRef = useRef<THREE.Mesh>(null);
 
@@ -92,7 +85,7 @@ function WireframeElement({ position }: { position: [number, number, number] }) 
   return (
     <Float speed={1} rotationIntensity={0.5} floatIntensity={1}>
       <mesh ref={meshRef} position={position}>
-        <torusKnotGeometry args={[0.8, 0.3, 128, 16]} />
+        <torusKnotGeometry args={[0.8, 0.3, 64, 16]} />
         <meshBasicMaterial color="#8B5CF6" wireframe />
       </mesh>
     </Float>
@@ -119,30 +112,28 @@ const PortfolioHero3D: React.FC<{ className?: string }> = ({ className = '' }) =
         }}
       >
         <Suspense fallback={null}>
-          {/* Enhanced Lighting Setup */}
-          <ambientLight intensity={0.3} />
-          <pointLight position={[10, 10, 10]} intensity={1.2} color="#00D9FF" />
-          <pointLight position={[-10, -10, -10]} intensity={0.8} color="#8B5CF6" />
-          <pointLight position={[0, 10, -10]} intensity={0.6} color="#FF0080" />
+          {/* Simplified Lighting Setup */}
+          <ambientLight intensity={0.4} />
+          <pointLight position={[10, 10, 10]} intensity={1} color="#00D9FF" />
+          <pointLight position={[-10, -10, -10]} intensity={0.6} color="#8B5CF6" />
 
-          {/* Portfolio 3D Elements */}
+          {/* Simplified 3D Elements */}
           <GlassSphere position={[-3, 2, -2]} />
-          <GeometricShape position={[3, -2, -1]} shape="octahedron" color="#00FF88" scale={0.8} />
+          <GeometricShape position={[3, -2, -1]} shape="sphere" color="#00FF88" scale={0.8} />
           <GeometricShape position={[-2, -1, 1]} shape="torus" color="#FF0080" scale={0.6} />
           <GeometricShape position={[2, 1, -3]} shape="box" color="#00D9FF" scale={0.7} />
           <WireframeElement position={[0, 3, -4]} />
           
-          {/* Creative sparkles */}
+          {/* Simplified sparkles */}
           <Sparkles 
-            count={100} 
-            scale={8} 
-            size={2} 
-            speed={0.4}
-            color="#00D9FF"
+            count={50} 
+            scale={6} 
+            size={1} 
+            speed={0.3}
           />
           
           {/* Environment */}
-          <Environment preset="studio" />
+          <Environment preset="sunset" />
           
           {/* Subtle orbit controls */}
           <OrbitControls 
