@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { scrollToSection } from '@/utils/portfolio';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,11 +28,11 @@ const Navbar: React.FC = () => {
   }, [isDark]);
 
   const navItems = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Resume', href: '#resume' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', href: 'home' },
+    { name: 'About', href: 'about' },
+    { name: 'Projects', href: 'projects' },
+    { name: 'Resume', href: 'resume' },
+    { name: 'Contact', href: 'contact' },
   ];
 
   return (
@@ -58,17 +59,19 @@ const Navbar: React.FC = () => {
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
               {navItems.map((item, index) => (
-                <motion.a
+                <motion.button
                   key={item.name}
-                  href={item.href}
+                  onClick={() => {
+                    scrollToSection(item.href);
+                    setIsOpen(false);
+                  }}
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="text-foreground hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:glow-effect"
-                  onClick={() => setIsOpen(false)}
+                  className="text-foreground hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:glow-effect cursor-pointer"
                 >
                   {item.name}
-                </motion.a>
+                </motion.button>
               ))}
             </div>
           </div>
@@ -106,14 +109,16 @@ const Navbar: React.FC = () => {
       >
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
           {navItems.map((item) => (
-            <a
+            <button
               key={item.name}
-              href={item.href}
-              className="text-foreground hover:text-primary block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
-              onClick={() => setIsOpen(false)}
+              onClick={() => {
+                scrollToSection(item.href);
+                setIsOpen(false);
+              }}
+              className="text-foreground hover:text-primary block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 w-full text-left cursor-pointer"
             >
               {item.name}
-            </a>
+            </button>
           ))}
         </div>
       </motion.div>

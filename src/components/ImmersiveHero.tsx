@@ -6,6 +6,7 @@ import WaterDroplets from './WaterDroplets';
 import CSSParticles from './CSSParticles';
 import PortfolioFloatingElements from './PortfolioFloatingElements';
 import { HoverButton } from './SimplifiedMicroInteractions';
+import { downloadCV, scrollToSection, socialLinks } from '@/utils/portfolio';
 
 const ImmersiveHero: React.FC = () => {
   const skills = [
@@ -23,7 +24,7 @@ const ImmersiveHero: React.FC = () => {
   ];
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-background via-background to-background/95">
+    <section id="home" className="relative min-h-screen overflow-hidden bg-gradient-to-br from-background via-background to-background/95">
       {/* Enhanced background with multiple layers */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5" />
       
@@ -126,7 +127,10 @@ const ImmersiveHero: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.1 }}
             >
-              <HoverButton className="group bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold glow-effect">
+              <HoverButton 
+                className="group bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold glow-effect"
+                onClick={() => scrollToSection('projects')}
+              >
                 View My Work
                 <ExternalLink className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </HoverButton>
@@ -135,6 +139,7 @@ const ImmersiveHero: React.FC = () => {
                 className="group px-8 py-4 text-lg font-medium text-foreground glass-effect hover:bg-card/70 transition-all duration-300 rounded-lg flex items-center justify-center"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
+                onClick={downloadCV}
               >
                 <Download className="w-5 h-5 mr-2" />
                 Download CV
@@ -149,13 +154,15 @@ const ImmersiveHero: React.FC = () => {
               transition={{ duration: 0.8, delay: 1.3 }}
             >
               {[
-                { icon: Github, href: "#", label: "GitHub" },
-                { icon: Linkedin, href: "#", label: "LinkedIn" },
-                { icon: Mail, href: "#", label: "Email" }
+                { icon: Github, href: socialLinks.github, label: "GitHub" },
+                { icon: Linkedin, href: socialLinks.linkedin, label: "LinkedIn" },
+                { icon: Mail, href: socialLinks.email, label: "Email" }
               ].map((social, index) => (
                 <motion.a
                   key={social.label}
                   href={social.href}
+                  target={social.href.startsWith('mailto:') ? '_self' : '_blank'}
+                  rel={social.href.startsWith('mailto:') ? '' : 'noopener noreferrer'}
                   className="w-12 h-12 glass-effect rounded-full flex items-center justify-center text-muted-foreground hover:text-primary hover:scale-110 transition-all duration-300"
                   whileHover={{ y: -2 }}
                   initial={{ opacity: 0, scale: 0.8 }}
@@ -202,13 +209,14 @@ const ImmersiveHero: React.FC = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.0 }}
-              className="glass-effect p-6 rounded-2xl glow-effect"
+              className="glass-effect p-6 rounded-2xl glow-effect cursor-pointer hover:bg-card/50 transition-all duration-300"
+              onClick={() => scrollToSection('projects')}
             >
               <h3 className="text-lg font-semibold text-foreground mb-3">
                 Latest Project
               </h3>
-              <div className="w-full h-32 bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg mb-4 flex items-center justify-center">
-                <div className="text-muted-foreground text-sm">Project Preview</div>
+              <div className="w-full h-32 bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg mb-4 flex items-center justify-center hover:scale-105 transition-transform duration-300">
+                <div className="text-muted-foreground text-sm">Click to View Projects</div>
               </div>
               <p className="text-sm text-muted-foreground">
                 AI-powered e-commerce platform with 3D product visualization
@@ -228,6 +236,7 @@ const ImmersiveHero: React.FC = () => {
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             className="flex flex-col items-center cursor-pointer group"
+            onClick={() => scrollToSection('about')}
           >
             <p className="text-muted-foreground text-xs mb-3 group-hover:text-foreground transition-colors">
               Explore Portfolio

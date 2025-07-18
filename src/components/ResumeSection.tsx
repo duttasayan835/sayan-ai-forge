@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Download, Eye, FileText, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { downloadCV } from '@/utils/portfolio';
 
 const ResumeSection: React.FC = () => {
   return (
@@ -68,11 +69,20 @@ const ResumeSection: React.FC = () => {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="flex-1 glow-effect group">
+                <Button 
+                  size="lg" 
+                  className="flex-1 glow-effect group"
+                  onClick={downloadCV}
+                >
                   <Download className="mr-2 h-5 w-5 group-hover:animate-bounce" />
                   Download PDF
                 </Button>
-                <Button variant="outline" size="lg" className="flex-1 glass-effect hover:bg-primary/10">
+                <Button 
+                  variant="outline" 
+                  size="lg" 
+                  className="flex-1 glass-effect hover:bg-primary/10"
+                  onClick={() => window.open('#resume', '_blank')}
+                >
                   <Eye className="mr-2 h-5 w-5" />
                   Preview Online
                 </Button>
