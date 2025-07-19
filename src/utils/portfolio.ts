@@ -68,55 +68,10 @@ export const cvData = {
   ]
 };
 
-// Function to generate and download CV as PDF-like text file
-export const downloadCV = () => {
-  const cvContent = `
-${cvData.personalInfo.name}
-${cvData.personalInfo.title}
-
-Contact Information:
-Email: ${cvData.personalInfo.email}
-Phone: ${cvData.personalInfo.phone}
-Location: ${cvData.personalInfo.location}
-Website: ${cvData.personalInfo.website}
-
-PROFESSIONAL SUMMARY
-${cvData.summary}
-
-TECHNICAL SKILLS
-${cvData.skills.join(' • ')}
-
-PROFESSIONAL EXPERIENCE
-
-${cvData.experience.map(exp => `
-${exp.position} | ${exp.company}
-${exp.period}
-${exp.responsibilities.map(resp => `• ${resp}`).join('\n')}
-`).join('\n')}
-
-EDUCATION
-${cvData.education.map(edu => `
-${edu.degree}
-${edu.school} | ${edu.period}
-`).join('\n')}
-
-FEATURED PROJECTS
-${cvData.projects.map(project => `
-${project.name}
-${project.description}
-Technologies: ${project.technologies.join(', ')}
-`).join('\n')}
-  `;
-
-  const blob = new Blob([cvContent], { type: 'text/plain' });
-  const url = window.URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = 'Sayan_Dutta_CV.txt';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  window.URL.revokeObjectURL(url);
+// Resume URLs
+export const resumeLinks = {
+  download: "https://drive.google.com/uc?export=download&id=1OowilWEGQrAwYwNCTb9BvVEYWekmzFzr",
+  preview: "https://drive.google.com/file/d/1OowilWEGQrAwYwNCTb9BvVEYWekmzFzr/view?usp=drive_link"
 };
 
 // Smooth scroll to section function
@@ -134,7 +89,7 @@ export const scrollToSection = (sectionId: string) => {
 // Social media links (replace with actual URLs)
 export const socialLinks = {
   github: "https://github.com/duttasayan835",
-  linkedin: "https://linkedin.com/in/dutta-sayan835",
+  linkedin: "https://www.linkedin.com/in/dutta-sayan835/",
   email: "mailto:duttasayan835@gmail.com",
   website: "https://sayandutta.dev"
 };

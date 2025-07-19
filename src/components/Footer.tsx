@@ -3,6 +3,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, Heart, ArrowUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { socialLinks } from '@/utils/portfolio';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -11,10 +12,10 @@ const Footer: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const socialLinks = [
-    { icon: Github, href: 'https://github.com', label: 'GitHub' },
-    { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-    { icon: Mail, href: 'mailto:sayan.dutta@example.com', label: 'Email' }
+  const socialLinksArray = [
+    { icon: Github, href: socialLinks.github, label: 'GitHub' },
+    { icon: Linkedin, href: socialLinks.linkedin, label: 'LinkedIn' },
+    { icon: Mail, href: socialLinks.email, label: 'Email' }
   ];
 
   const quickLinks = [
@@ -42,7 +43,7 @@ const Footer: React.FC = () => {
               that make a difference. Always exploring the cutting edge of technology.
             </p>
             <div className="flex space-x-4">
-              {socialLinks.map((social) => (
+              {socialLinksArray.map((social) => (
                 <a
                   key={social.label}
                   href={social.href}

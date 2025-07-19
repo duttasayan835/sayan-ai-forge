@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Download, Eye, FileText, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { downloadCV } from '@/utils/portfolio';
+import { resumeLinks } from '@/utils/portfolio';
 
 const ResumeSection: React.FC = () => {
   return (
@@ -72,19 +72,23 @@ const ResumeSection: React.FC = () => {
                 <Button 
                   size="lg" 
                   className="flex-1 glow-effect group"
-                  onClick={downloadCV}
+                  asChild
                 >
-                  <Download className="mr-2 h-5 w-5 group-hover:animate-bounce" />
-                  Download PDF
+                  <a href={resumeLinks.download} target="_blank" rel="noopener noreferrer">
+                    <Download className="mr-2 h-5 w-5 group-hover:animate-bounce" />
+                    Download PDF
+                  </a>
                 </Button>
                 <Button 
                   variant="outline" 
                   size="lg" 
                   className="flex-1 glass-effect hover:bg-primary/10"
-                  onClick={() => window.open('#resume', '_blank')}
+                  asChild
                 >
-                  <Eye className="mr-2 h-5 w-5" />
-                  Preview Online
+                  <a href={resumeLinks.preview} target="_blank" rel="noopener noreferrer">
+                    <Eye className="mr-2 h-5 w-5" />
+                    Preview Online
+                  </a>
                 </Button>
               </div>
               

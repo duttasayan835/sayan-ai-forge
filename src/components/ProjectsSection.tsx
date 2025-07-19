@@ -132,7 +132,53 @@ const ProjectsSection: React.FC = () => {
               style={{ transformStyle: "preserve-3d" }}
             >
               <Card className="h-full glass-effect border-primary/20 hover:border-primary/40 transition-all duration-500 overflow-hidden transform-gpu hover:shadow-2xl hover:shadow-primary/20">
-                <LiveDemoFrame project={project} />
+                <motion.div
+                  className="relative w-full h-48 bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg overflow-hidden"
+                  whileHover="hover"
+                  initial="initial"
+                >
+                  <motion.div
+                    className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center"
+                    variants={{
+                      initial: { opacity: 1, scale: 1 },
+                      hover: { opacity: 0, scale: 1.1 }
+                    }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <project.icon className="h-16 w-16 text-primary" />
+                  </motion.div>
+                  
+                  <motion.div
+                    className="absolute inset-0"
+                    variants={{
+                      initial: { opacity: 0, y: 20 },
+                      hover: { opacity: 1, y: 0 }
+                    }}
+                    transition={{ duration: 0.3, delay: 0.1 }}
+                  >
+                    <img
+                      src={project.id === 1 
+                        ? "https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=600"
+                        : project.id === 2 
+                        ? "https://images.pexels.com/photos/5380664/pexels-photo-5380664.jpeg?auto=compress&cs=tinysrgb&w=600"
+                        : "https://images.pexels.com/photos/590020/pexels-photo-590020.jpg?auto=compress&cs=tinysrgb&w=600"
+                      }
+                      alt={`${project.title} preview`}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                        <div className="flex-1 bg-black/30 rounded px-2 py-1 text-xs text-white/80">
+                          {project.mockup}.demo.app
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                </motion.div>
                 
                 <CardHeader>
                   <div className="flex items-center justify-between">

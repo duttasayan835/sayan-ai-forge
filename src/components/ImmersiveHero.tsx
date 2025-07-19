@@ -6,7 +6,7 @@ import WaterDroplets from './WaterDroplets';
 import CSSParticles from './CSSParticles';
 import PortfolioFloatingElements from './PortfolioFloatingElements';
 import { HoverButton } from './SimplifiedMicroInteractions';
-import { downloadCV, scrollToSection, socialLinks } from '@/utils/portfolio';
+import { scrollToSection, socialLinks, resumeLinks } from '@/utils/portfolio';
 
 const ImmersiveHero: React.FC = () => {
   const skills = [
@@ -139,7 +139,7 @@ const ImmersiveHero: React.FC = () => {
                 className="group px-8 py-4 text-lg font-medium text-foreground glass-effect hover:bg-card/70 transition-all duration-300 rounded-lg flex items-center justify-center"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={downloadCV}
+                onClick={() => window.open(resumeLinks.download, '_blank')}
               >
                 <Download className="w-5 h-5 mr-2" />
                 Download CV
@@ -224,7 +224,7 @@ const ImmersiveHero: React.FC = () => {
                       }}
                       transition={{
                         duration: 3 + i * 0.5,
-                        repeat: Infinity,
+                      src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400"
                         ease: "easeInOut",
                         delay: i * 0.3
                       }}
@@ -274,11 +274,18 @@ const ImmersiveHero: React.FC = () => {
                 Latest Project
               </h3>
               <motion.div 
-                className="w-full h-32 bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg mb-4 flex items-center justify-center transition-transform duration-300"
+                className="w-full h-32 rounded-lg mb-4 overflow-hidden transition-transform duration-300"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <div className="text-muted-foreground text-sm">Click to View Projects</div>
+                <img
+                  src="https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=600"
+                  alt="Savitr-AI Project Preview"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
+                  <div className="text-white text-sm p-3">Click to View Projects</div>
+                </div>
               </motion.div>
               <p className="text-sm text-muted-foreground">
                 Savitr-AI: Intelligent delivery optimization system with advanced RAG capabilities
