@@ -1,63 +1,69 @@
 // Sample CV content for download
 export const cvData = {
   personalInfo: {
-    name: "Alex Johnson",
-    title: "Creative Developer & Designer",
-    email: "alex.johnson@example.com",
-    phone: "+1 (555) 123-4567",
-    location: "San Francisco, CA",
-    website: "www.alexjohnson.dev"
+    name: "Sayan Dutta",
+    title: "AI/LLM Builder & CSE Student",
+    email: "duttasayan835@gmail.com",
+    phone: "+91 (XXX) XXX-XXXX",
+    location: "West Bengal, India",
+    website: "www.sayandutta.dev"
   },
-  summary: "Passionate creative developer with 3+ years of experience creating stunning digital experiences that blend beautiful design with cutting-edge technology. Specializing in modern web development, 3D interactions, and user-centered design.",
+  summary: "Passionate AI/LLM builder and 3rd-year Computer Science Engineering student with expertise in developing intelligent automation tools and real-world AI applications. Currently working on Savitr-AI, an intelligent delivery optimization system with advanced RAG capabilities.",
   skills: [
-    "React & Next.js",
-    "TypeScript",
-    "Three.js & WebGL",
-    "UI/UX Design",
-    "Node.js",
     "Python",
-    "Figma & Adobe Creative Suite",
-    "3D Modeling & Animation"
+    "LangChain",
+    "OpenAI API",
+    "React & JavaScript",
+    "MongoDB",
+    "AI/ML",
+    "RAG Systems",
+    "Node.js"
   ],
   experience: [
     {
-      company: "Tech Innovations Inc.",
-      position: "Senior Frontend Developer",
-      period: "2022 - Present",
+      company: "Savitr-AI Project",
+      position: "AI/LLM Developer",
+      period: "2024 - Present",
       responsibilities: [
-        "Led development of interactive web applications using React and Three.js",
-        "Collaborated with design team to create immersive user experiences",
-        "Improved website performance by 40% through optimization techniques"
+        "Developing intelligent delivery system with advanced RAG capabilities",
+        "Implementing multi-modal AI interactions for logistics optimization",
+        "Building scalable AI agents for real-time decision making"
       ]
     },
     {
-      company: "Digital Agency Pro",
-      position: "Full Stack Developer",
-      period: "2021 - 2022",
+      company: "Road Safety Project",
+      position: "Data Analyst Intern",
+      period: "2023 - 2024",
       responsibilities: [
-        "Developed responsive websites for clients across various industries",
-        "Implemented modern design systems and component libraries",
-        "Mentored junior developers on best practices"
+        "Built comprehensive analytics dashboard for traffic safety monitoring",
+        "Developed predictive insights using data analysis techniques",
+        "Created interactive visualizations using React and D3.js"
       ]
     }
   ],
   education: [
     {
-      degree: "Bachelor of Science in Computer Science",
-      school: "University of California, Berkeley",
-      period: "2017 - 2021"
+      degree: "B.Tech in Computer Science Engineering",
+      school: "University Institute of Technology, Burdwan",
+      period: "2022 - 2026",
+      cgpa: "8.79"
     }
   ],
   projects: [
     {
-      name: "AI-Powered E-commerce Platform",
-      description: "3D product visualization with AI recommendations",
-      technologies: ["React", "Three.js", "Python", "TensorFlow"]
+      name: "Savitr-AI",
+      description: "Intelligent delivery system with advanced RAG capabilities and multi-modal AI interactions",
+      technologies: ["Python", "LangChain", "OpenAI API", "MongoDB"]
     },
     {
-      name: "Interactive Portfolio Website",
-      description: "Immersive 3D portfolio with WebGL animations",
-      technologies: ["React", "Three.js", "Framer Motion", "TypeScript"]
+      name: "Cyberpunk Chatbot",
+      description: "Interactive AI chatbot with futuristic cyberpunk theme and real-time responses",
+      technologies: ["React", "Node.js", "WebSocket", "Gemini API"]
+    },
+    {
+      name: "Road Safety Dashboard",
+      description: "Comprehensive analytics platform for traffic safety monitoring in India",
+      technologies: ["React", "D3.js", "Python", "Qlik Sense"]
     }
   ]
 };
@@ -106,7 +112,7 @@ Technologies: ${project.technologies.join(', ')}
   const url = window.URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;
-  link.download = 'Alex_Johnson_CV.txt';
+  link.download = 'Sayan_Dutta_CV.txt';
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
@@ -127,8 +133,8 @@ export const scrollToSection = (sectionId: string) => {
 
 // Social media links (replace with actual URLs)
 export const socialLinks = {
-  github: "https://github.com/alexjohnson", // Replace with actual GitHub
-  linkedin: "https://linkedin.com/in/alexjohnson", // Replace with actual LinkedIn
-  email: "mailto:alex.johnson@example.com", // Replace with actual email
-  website: "https://alexjohnson.dev" // Replace with actual website
+  github: "https://github.com/duttasayan835",
+  linkedin: "https://linkedin.com/in/dutta-sayan835",
+  email: "mailto:duttasayan835@gmail.com",
+  website: "https://sayandutta.dev"
 };

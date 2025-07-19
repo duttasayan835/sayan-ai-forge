@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -43,6 +42,17 @@
     --sidebar-accent-foreground: 220 9% 90%;
     --sidebar-border: 220 13% 19%;
     --sidebar-ring: 195 100% 50%;
+
+    /* Glass effect variables */
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-blur: 12px;
+  }
+
+  .liquid-glass-enabled {
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(0, 217, 255, 0.3);
+    --glass-blur: 20px;
   }
 
   .light {
@@ -82,6 +92,17 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Light mode glass effect */
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(0, 0, 0, 0.1);
+    --glass-blur: 12px;
+  }
+
+  .light.liquid-glass-enabled {
+    --glass-bg: rgba(255, 255, 255, 0.3);
+    --glass-border: rgba(0, 217, 255, 0.4);
+    --glass-blur: 24px;
   }
 }
 
@@ -109,7 +130,17 @@
   }
   
   .glass-effect {
-    @apply bg-card/50 backdrop-blur-xl border border-border/50;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+  }
+  
+  .liquid-glass-enabled .glass-effect {
+    box-shadow: 
+      0 8px 32px rgba(0, 217, 255, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
   }
   
   .glow-effect {
@@ -167,6 +198,15 @@
   
   .animate-glow {
     animation: glow 2s ease-in-out infinite alternate;
+  }
+  
+  /* Liquid glass specific animations */
+  .animate-liquid-float {
+    animation: liquid-float 4s ease-in-out infinite;
+  }
+  
+  .animate-ripple {
+    animation: ripple 0.6s ease-out;
   }
   
   /* Hover effects */
@@ -298,6 +338,26 @@ html {
   }
   100% {
     filter: brightness(1.2) drop-shadow(0 0 30px rgba(0, 217, 255, 0.6));
+  }
+}
+
+@keyframes liquid-float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(2deg);
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
   }
 }
 

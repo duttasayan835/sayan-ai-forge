@@ -182,6 +182,61 @@ const ImmersiveHero: React.FC = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1.2, delay: 0.5 }}
           >
+            {/* Profile Image Section */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, delay: 0.3 }}
+              className="mb-8 flex justify-center"
+            >
+              <motion.div
+                className="relative"
+                whileHover={{ scale: 1.05, rotateY: 10 }}
+                whileTap={{ scale: 0.95 }}
+                style={{ transformStyle: "preserve-3d" }}
+              >
+                <div className="relative w-64 h-64 rounded-full overflow-hidden glass-effect p-2">
+                  <div className="w-full h-full rounded-full bg-gradient-to-br from-primary via-accent to-secondary p-1">
+                    <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-purple-500 via-pink-500 to-cyan-500">
+                      {/* Replace this placeholder with your actual image */}
+                      <img
+                        src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400"
+                        alt="Sayan Dutta - AI/LLM Builder"
+                        className="w-full h-full object-cover rounded-full"
+                        style={{ filter: 'brightness(1.1) contrast(1.1)' }}
+                      />
+                    </div>
+                  </div>
+                  
+                  {/* Floating particles around image */}
+                  {[...Array(6)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute w-2 h-2 bg-primary/60 rounded-full"
+                      style={{
+                        top: `${20 + Math.sin(i * 60 * Math.PI / 180) * 35}%`,
+                        left: `${50 + Math.cos(i * 60 * Math.PI / 180) * 35}%`,
+                      }}
+                      animate={{
+                        scale: [1, 1.5, 1],
+                        opacity: [0.6, 1, 0.6],
+                        rotate: [0, 360]
+                      }}
+                      transition={{
+                        duration: 3 + i * 0.5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: i * 0.3
+                      }}
+                    />
+                  ))}
+                </div>
+                
+                {/* Glow effect behind image */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full blur-xl -z-10 animate-pulse" />
+              </motion.div>
+            </motion.div>
+
             {/* Stats Grid */}
             <div className="grid grid-cols-3 gap-4 mb-8">
               {stats.map((stat, index) => (
@@ -190,7 +245,8 @@ const ImmersiveHero: React.FC = () => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.7 + index * 0.2 }}
-                  whileHover={{ y: -4 }}
+                  whileHover={{ y: -4, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                 >
                   <GlassMorphism className="p-6 text-center glow-effect">
                     <div className="text-2xl md:text-3xl font-bold text-gradient mb-2">
@@ -211,15 +267,21 @@ const ImmersiveHero: React.FC = () => {
               transition={{ duration: 0.8, delay: 1.0 }}
               className="glass-effect p-6 rounded-2xl glow-effect cursor-pointer hover:bg-card/50 transition-all duration-300"
               onClick={() => scrollToSection('projects')}
+              whileHover={{ scale: 1.02, y: -2 }}
+              whileTap={{ scale: 0.98 }}
             >
               <h3 className="text-lg font-semibold text-foreground mb-3">
                 Latest Project
               </h3>
-              <div className="w-full h-32 bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg mb-4 flex items-center justify-center hover:scale-105 transition-transform duration-300">
+              <motion.div 
+                className="w-full h-32 bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg mb-4 flex items-center justify-center transition-transform duration-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
                 <div className="text-muted-foreground text-sm">Click to View Projects</div>
-              </div>
+              </motion.div>
               <p className="text-sm text-muted-foreground">
-                AI-powered e-commerce platform with 3D product visualization
+                Savitr-AI: Intelligent delivery optimization system with advanced RAG capabilities
               </p>
             </motion.div>
           </motion.div>
@@ -237,6 +299,8 @@ const ImmersiveHero: React.FC = () => {
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             className="flex flex-col items-center cursor-pointer group"
             onClick={() => scrollToSection('about')}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
             <p className="text-muted-foreground text-xs mb-3 group-hover:text-foreground transition-colors">
               Explore Portfolio

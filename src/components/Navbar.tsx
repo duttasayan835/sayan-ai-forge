@@ -1,14 +1,16 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon, Droplets } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { scrollToSection } from '@/utils/portfolio';
+import { useUIContext } from '@/contexts/UIContext';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDark, setIsDark] = useState(true);
   const [scrolled, setScrolled] = useState(false);
+  const { isLiquidGlass, toggleLiquidGlass } = useUIContext();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -77,6 +79,27 @@ const Navbar: React.FC = () => {
           </div>
 
           <div className="flex items-center space-x-4">
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={toggleLiquidGlass}
+                className={`hover:bg-primary/10 transition-all duration-300 ${
+                  isLiquidGlass ? 'bg-primary/20 text-primary' : ''
+                }`}
+                title={isLiquidGlass ? 'Disable Liquid Glass' : 'Enable Liquid Glass'}
+              >
+                <Droplets className="h-5 w-5" />
+              </Button>
+            </motion.div>
+
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
             <Button
               variant="ghost"
               size="icon"
@@ -85,9 +108,14 @@ const Navbar: React.FC = () => {
             >
               {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </Button>
+            </motion.div>
 
             {/* Mobile menu button */}
             <div className="md:hidden">
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
               <Button
                 variant="ghost"
                 size="icon"
@@ -96,6 +124,7 @@ const Navbar: React.FC = () => {
               >
                 {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </Button>
+              </motion.div>
             </div>
           </div>
         </div>
@@ -109,16 +138,18 @@ const Navbar: React.FC = () => {
       >
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
           {navItems.map((item) => (
-            <button
+            <motion.button
               key={item.name}
               onClick={() => {
                 scrollToSection(item.href);
                 setIsOpen(false);
               }}
               className="text-foreground hover:text-primary block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 w-full text-left cursor-pointer"
+              whileHover={{ scale: 1.02, x: 5 }}
+              whileTap={{ scale: 0.98 }}
             >
               {item.name}
-            </button>
+            </motion.button>
           ))}
         </div>
       </motion.div>
