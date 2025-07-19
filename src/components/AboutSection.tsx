@@ -132,7 +132,7 @@ const AboutSection: React.FC = () => {
   );
 
   return (
-    <section id="about" className="py-20 relative z-10 bg-background/80 backdrop-blur-sm">
+    <section id="about" className="py-20 relative z-10 bg-black/70 backdrop-blur-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
           <div className="text-center mb-16">

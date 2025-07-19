@@ -24,13 +24,13 @@ const ImmersiveHero: React.FC = () => {
   ];
 
   return (
-    <section id="home" className="relative min-h-screen overflow-hidden bg-gradient-to-br from-background via-background to-background/95">
-      {/* Enhanced background with multiple layers */}
+    <section id="home" className="relative min-h-screen overflow-hidden">
+      {/* Enhanced background optimized for video */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5" />
       
-      {/* Dynamic gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-accent/8" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/30 to-background" />
+      {/* Dynamic gradient overlays for video background */}
+      <div className="absolute inset-0 bg-gradient-to-r from-white/5 via-transparent to-white/8 z-5" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black/60 z-5" />
       
       {/* Animated background orbs with portfolio colors */}
       <div className="absolute top-1/4 left-1/6 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-float" />
